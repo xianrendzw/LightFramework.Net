@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1AD30BE7-7F29-4509-ADCF-17D02E2C8E3A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LightFramework.Caching</RootNamespace>
+    <AssemblyName>LightFramework.Caching</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Memcached\Adapter\EnyimMemcachedAdapter.cs" />
+    <Compile Include="Memcached\Adapter\WhalinMemcachedAdapter.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Configuration\AuthenticationConfiguration.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Configuration\AuthenticationElement.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Configuration\ConfigurationElementException.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Configuration\ConfigurationHelper.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Configuration\EndPointElement.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Configuration\EndPointElementCollection.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Configuration\FactoryElement.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Configuration\IAuthenticationConfiguration.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Configuration\IMemcachedClientConfiguration.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Configuration\InterfaceValidator.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Configuration\ISocketPoolConfiguration.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Configuration\IVBucketConfiguration.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Configuration\JsonVBucketConfig.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Configuration\LoggerSection.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Configuration\MemcachedClientConfiguration.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Configuration\MemcachedClientSection.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Configuration\ProviderElement.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Configuration\SocketPoolConfiguration.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Configuration\SocketPoolElement.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Configuration\TextElement.cs" />
+    <Compile Include="Memcached\Enyim\Caching\IMemcachedClient.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Logging\ILog.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Logging\ILogFactory.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Logging\LogManager.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Logging\NullLog.cs" />
+    <Compile Include="Memcached\Enyim\Caching\MemcachedClient.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Authentication\PlainTextAuthenticator.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\CommandNotSupportedException.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\DefaultServerPool.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Enums.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\IAuthenticator.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\IMemcachedKeyTransformer.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\IMemcachedNode.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\IMemcachedNodeLocator.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\IOperationFactory.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\IProviderFactory.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\ISaslAuthenticationProvider.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\IServerPool.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\KeyTransformers\Base64KeyTransformer.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\KeyTransformers\DefaultKeyTransformer.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\KeyTransformers\KeyTransformerBase.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\KeyTransformers\SHA1KeyTransformer.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\KeyTransformers\TigerHashKeyTransformer.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Locators\DefaultNodeLocator.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Locators\KetamaNodeLocator.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Locators\KetamaNodeLocatorFactory.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Locators\SingleNodeLocator.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Locators\VBucketNodeLocator.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Locators\VBucketNodeLocatorFactory.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\MemcachedClientException.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\MemcachedException.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\MemcachedNode.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\OperationInterfaces.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\PerformanceMonitor\DefaultPerformanceMonitor.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\PerformanceMonitor\DefaultPerformanceMonitorFactory.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\PerformanceMonitor\IPerformanceMonitor.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\PerformanceMonitor\PerformanceCounterInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Memcached\Enyim\Caching\Memcached\PooledSocket.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Binary\BinaryConverter.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Binary\BinaryMultiItemOperation.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Binary\BinaryNode.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Binary\BinaryOperation.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Binary\BinaryOperationFactory.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Binary\BinaryPool.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Binary\BinaryRequest.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Binary\BinaryResponse.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Binary\BinarySingleItemOperation.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Binary\ConcatOperation.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Binary\DeleteOperation.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Binary\FlushOperation.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Binary\GetOperation.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Binary\MultiGetOperation.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Binary\MutatorOperation.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Binary\OpCode.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Binary\SaslContinue.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Binary\SaslStart.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Binary\SaslStep.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Binary\StatsOperation.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Binary\StoreOperation.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\ItemOperation.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\MultiItemOperation.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Operation.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Text\CasOperation.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Text\ConcateOperation.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Text\DeleteOperation.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Text\FlushOperation.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Text\GetHelper.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Text\GetOperation.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Text\MultiGetOperation.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Text\MutatorOperation.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Text\StatsOperation.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Text\StoreOperation.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Text\StoreOperationBase.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Text\TextOperationFactory.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Protocol\Text\TextSocketHelper.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\ServerStats.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\StatItem.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\StoreMode.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\ThrowHelper.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Transcoders\CacheItem.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Transcoders\DefaultTranscoder.cs" />
+    <Compile Include="Memcached\Enyim\Caching\Memcached\Transcoders\ITranscoder.cs" />
+    <Compile Include="Memcached\Enyim\Caching\UIntEqualityComparer.cs" />
+    <Compile Include="Memcached\Enyim\FastActivator.cs" />
+    <Compile Include="Memcached\Enyim\FnvHash.cs" />
+    <Compile Include="Memcached\Enyim\HashCodeCombiner.cs" />
+    <Compile Include="Memcached\Enyim\HashkitCrc32.cs" />
+    <Compile Include="Memcached\Enyim\HashkitMurmur.cs" />
+    <Compile Include="Memcached\Enyim\HashkitOneAtATime.cs" />
+    <Compile Include="Memcached\Enyim\IFastObjectFacory.cs" />
+    <Compile Include="Memcached\Enyim\InterlockedQueue.cs" />
+    <Compile Include="Memcached\Enyim\IUIntHashAlgorithm.cs" />
+    <Compile Include="Memcached\Enyim\Membase\BucketConfigListener.cs" />
+    <Compile Include="Memcached\Enyim\Membase\ConfigHelper.cs" />
+    <Compile Include="Memcached\Enyim\Membase\Configuration\BucketPortType.cs" />
+    <Compile Include="Memcached\Enyim\Membase\Configuration\DefaultPerformanceMonitorFactory.cs" />
+    <Compile Include="Memcached\Enyim\Membase\Configuration\IMembaseClientConfiguration.cs" />
+    <Compile Include="Memcached\Enyim\Membase\Configuration\IMembasePerformanceMonitorFactory.cs" />
+    <Compile Include="Memcached\Enyim\Membase\Configuration\MembaseClientConfiguration.cs" />
+    <Compile Include="Memcached\Enyim\Membase\Configuration\MembaseClientSection.cs" />
+    <Compile Include="Memcached\Enyim\Membase\Configuration\ServersElement.cs" />
+    <Compile Include="Memcached\Enyim\Membase\Configuration\UriElement.cs" />
+    <Compile Include="Memcached\Enyim\Membase\Configuration\UriElementCollection.cs" />
+    <Compile Include="Memcached\Enyim\Membase\Configuration\UriValidator.cs" />
+    <Compile Include="Memcached\Enyim\Membase\Deserialization.cs" />
+    <Compile Include="Memcached\Enyim\Membase\MembaseClient.cs" />
+    <Compile Include="Memcached\Enyim\Membase\MembasePool.cs" />
+    <Compile Include="Memcached\Enyim\Membase\MessageStreamListener.cs" />
+    <Compile Include="Memcached\Enyim\Membase\VBucketAwareOperationFactory.cs" />
+    <Compile Include="Memcached\Enyim\Membase\WebClientWithTimeout.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Memcached\Enyim\TigerHash.cs" />
+    <Compile Include="Memcached\Whalin\Caching\Configuration\ConfigurationElementException.cs" />
+    <Compile Include="Memcached\Whalin\Caching\Configuration\ConfigurationHelper.cs" />
+    <Compile Include="Memcached\Whalin\Caching\Configuration\EndPointElement.cs" />
+    <Compile Include="Memcached\Whalin\Caching\Configuration\EndPointElementCollection.cs" />
+    <Compile Include="Memcached\Whalin\Caching\Configuration\IMemcachedClientConfiguration.cs" />
+    <Compile Include="Memcached\Whalin\Caching\Configuration\InterfaceValidator.cs" />
+    <Compile Include="Memcached\Whalin\Caching\Configuration\ISocketPoolConfiguration.cs" />
+    <Compile Include="Memcached\Whalin\Caching\Configuration\MemcachedClientConfiguration.cs" />
+    <Compile Include="Memcached\Whalin\Caching\Configuration\MemcachedClientSection.cs" />
+    <Compile Include="Memcached\Whalin\Caching\Configuration\SocketPoolConfiguration.cs" />
+    <Compile Include="Memcached\Whalin\Caching\Configuration\SocketPoolElement.cs" />
+    <Compile Include="Memcached\Whalin\Caching\Configuration\TextElement.cs" />
+    <Compile Include="Memcached\Whalin\Caching\MemcachedManager.cs" />
+    <Compile Include="Memcached\Whalin\Caching\Memcached\CRCTool.cs" />
+    <Compile Include="Memcached\Whalin\Caching\Memcached\IterIsolate.cs" />
+    <Compile Include="Memcached\Whalin\Caching\Memcached\MemcachedClient.cs" />
+    <Compile Include="Memcached\Whalin\Caching\Memcached\NativeHandler.cs" />
+    <Compile Include="Memcached\Whalin\Caching\Memcached\NetworkStreamIgnoreSeek.cs" />
+    <Compile Include="Memcached\Whalin\Caching\Memcached\SockIO.cs" />
+    <Compile Include="Memcached\Whalin\Caching\Memcached\SockIOPool.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Memcached\Enyim\Caching\Demo.config" />
+    <None Include="Memcached\Enyim\Membase\Demo.config" />
+    <None Include="Memcached\Whalin\Caching\Demo.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Memcached\Whalin\Caching\Memcached\StringMessages.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LightFramework.Core\LightFramework.Core.csproj">
+      <Project>{290AC7F6-3F12-4904-8229-D5F6E468293F}</Project>
+      <Name>LightFramework.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

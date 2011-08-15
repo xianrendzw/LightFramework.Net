@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3882CDD7-B25E-4DAA-BB7E-0185F06E2022}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LightFramework.Data</RootNamespace>
+    <AssemblyName>LightFramework.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes\ColumnAttribute.cs" />
+    <Compile Include="Biz\BaseDataAccessBiz.cs" />
+    <Compile Include="Biz\CommonBiz.cs" />
+    <Compile Include="Biz\SinglePKDataAccessBiz.cs" />
+    <Compile Include="Biz\ViewDataAccessBiz.cs" />
+    <Compile Include="Criterion\Conj\AndConj.cs" />
+    <Compile Include="Criterion\Conj\IConj.cs" />
+    <Compile Include="Criterion\Conj\OrConj.cs" />
+    <Compile Include="Criterion\Operand\BetweenOperand.cs" />
+    <Compile Include="Criterion\Operand\EqualOperand.cs" />
+    <Compile Include="Criterion\Operand\GreaterThanOperand.cs" />
+    <Compile Include="Criterion\Operand\GreaterThanOrEqualOperand.cs" />
+    <Compile Include="Criterion\Operand\InOperand.cs" />
+    <Compile Include="Criterion\Operand\IsNotNullOperand.cs" />
+    <Compile Include="Criterion\Operand\IsNullOperand.cs" />
+    <Compile Include="Criterion\Operand\LeftBracketOperand.cs" />
+    <Compile Include="Criterion\Operand\LessThanOperand.cs" />
+    <Compile Include="Criterion\Operand\LessThanOrEqualOperand.cs" />
+    <Compile Include="Criterion\Operand\LikeLeftOperand.cs" />
+    <Compile Include="Criterion\Operand\LikeOperand.cs" />
+    <Compile Include="Criterion\Operand\NotEqualOperand.cs" />
+    <Compile Include="Criterion\Operand\NotInOperand.cs" />
+    <Compile Include="Criterion\Operand\NotLikeOperand.cs" />
+    <Compile Include="Criterion\Operand\Operand.cs" />
+    <Compile Include="Criterion\Operand\RightBracketOperand.cs" />
+    <Compile Include="Criterion\Operand\WhereOperand.cs" />
+    <Compile Include="Criterion\CriterionBuilder.cs" />
+    <Compile Include="Enums\Enums.cs" />
+    <Compile Include="Collections\PageData.cs" />
+    <Compile Include="Interfaces\IBaseDataAccess.cs" />
+    <Compile Include="Interfaces\IBaseDelete.cs" />
+    <Compile Include="Interfaces\IBaseInsert.cs" />
+    <Compile Include="Interfaces\IBaseSelect.cs" />
+    <Compile Include="Interfaces\IBaseUpdate.cs" />
+    <Compile Include="Interfaces\ISinglePKDataAccess.cs" />
+    <Compile Include="Interfaces\ISinglePKDelete.cs" />
+    <Compile Include="Interfaces\ISinglePKInsert.cs" />
+    <Compile Include="Interfaces\ISinglePKSelect.cs" />
+    <Compile Include="Interfaces\ISinglePKUpdate.cs" />
+    <Compile Include="Interfaces\IViewDataAccess.cs" />
+    <Compile Include="Collections\DataFieldMapTable.cs" />
+    <Compile Include="Mapping\EntityMapper.cs" />
+    <Compile Include="Mapping\MetaDataColumn.cs" />
+    <Compile Include="Mapping\MetaDataTable.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
