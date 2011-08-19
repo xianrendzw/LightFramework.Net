@@ -1,7 +1,7 @@
 /*==============================================================*/
 /* Database name:  LightFramework                               */
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2011/8/18 16:25:59                           */
+/* Created on:     2011/8/19 9:55:10                            */
 /*==============================================================*/
 
 
@@ -33,7 +33,7 @@ create table Category
 (
    Id                   int(4) not null,
    Name                 varchar(50) not null,
-   "Desc"               varchar(100) not null,
+   Description          varchar(100) not null,
    primary key (Id)
 );
 
@@ -83,7 +83,7 @@ create table Product
    Id                   int(4) not null,
    CategoryId           int(4) not null,
    Name                 varchar(50) not null,
-   "Desc"               varchar(50) not null,
+   Description          varchar(50) not null,
    primary key (Id)
 );
 
