@@ -5,21 +5,24 @@ using System.Text;
 
 namespace LightFramework.Data.Test.DTO
 {
-    using Data;
-
-    public class CategoryDTO
+    public class ProductDTO
     {
         #region Const Members
 
         /// <summary>
-        /// 实体Category名称
+        /// 实体Product名称
         /// </summary>
-        public static string ENTITYNAME = "Category";
+        public static string ENTITYNAME = "Product";
 
         /// <summary>
         /// 列名Id,Id
         /// </summary>
         public static readonly string C_Id = "Id";
+
+        /// <summary>
+        /// 列名CategoryId,CategoryId
+        /// </summary>
+        public static readonly string C_CategoryId = "CategoryId";
 
         /// <summary>
         /// 列名Name,Name
@@ -38,6 +41,8 @@ namespace LightFramework.Data.Test.DTO
         #region Field Members
 
         private Int32 _id;
+
+        private Int32 _categoryId;
 
         private String _name;
 
@@ -62,6 +67,22 @@ namespace LightFramework.Data.Test.DTO
             set
             {
                 this._id = value;
+            }
+        }
+
+        /// <summary>
+        /// 获取或设置CategoryId
+        /// </summary>
+        [Column(Name = "CategoryId")]
+        public virtual Int32 CategoryId
+        {
+            get
+            {
+                return this._categoryId;
+            }
+            set
+            {
+                this._categoryId = value;
             }
         }
 
