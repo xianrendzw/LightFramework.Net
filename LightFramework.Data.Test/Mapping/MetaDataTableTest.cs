@@ -55,9 +55,9 @@ namespace LightFramework.Data.Test.Mapping
         {
             PropertyInfo[] properties = this._metaDataTable.EntityType.GetProperties();
             Assert.That(this._metaDataTable.Columns.Keys.ToArray(),
-                Is.EqualTo(properties.Select(x => x.Name.ToLower()).ToArray()));
+                Is.EquivalentTo(properties.Select(x => x.Name.ToLower()).ToArray()));
             Assert.That(this._metaDataTable.Columns.Values.Select(x => x.Member).ToArray(),
-                Is.EqualTo(properties));
+                Is.EquivalentTo(properties));
         }
     }
 }
