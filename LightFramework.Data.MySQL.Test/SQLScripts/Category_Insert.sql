@@ -1,0 +1,6 @@
+﻿insert into category(id,name,description) values(1,'dotnet','microsoft .net framework')
+insert into category(id,name,description) values(2,'JAVA','oracle')
+insert into category(id,name,description) values(3,'Csharp','microsoft .net framework')
+insert into category(id,name,description) values(4,'MONO.Net','Novell')
+insert into category(id,name,description) values(5,'Fsharp','microsoft .net framework')
+insert into category(id,name,description) values(6,'Ruby','Ruby-lang.org')
