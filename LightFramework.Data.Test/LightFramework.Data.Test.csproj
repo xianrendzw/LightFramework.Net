@@ -51,6 +51,8 @@
     <Compile Include="DTO\ItemDTO.cs" />
     <Compile Include="DTO\NullableDTO.cs" />
     <Compile Include="DTO\ProductDTO.cs" />
+    <Compile Include="Mapping\MetaDataColumnTest.cs" />
+    <Compile Include="Mapping\MetaDataTableTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -61,11 +63,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Model\LightFramework.pdm" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="Model\DataBase.sql" />
+    <Folder Include="Criterion\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

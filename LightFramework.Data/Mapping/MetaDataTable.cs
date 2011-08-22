@@ -18,10 +18,10 @@ namespace LightFramework.Data
         {
             _entityType = entityType;
             _tableName = tableName;
-            _columns = ExtractColumns(entityType);
+            _columns = GetColumns(entityType);
         }
 
-        private Dictionary<string, MetaDataColumn> ExtractColumns(Type entityType)
+        private Dictionary<string, MetaDataColumn> GetColumns(Type entityType)
         {
             PropertyInfo[] properties = entityType.GetProperties();
             if (properties == null)
