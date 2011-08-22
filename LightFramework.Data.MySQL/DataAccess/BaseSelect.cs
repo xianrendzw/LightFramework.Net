@@ -177,7 +177,7 @@ namespace LightFramework.Data.MySQL
             //获取筛选列
             string columns = this.GetColumns(columnNames);
             string sqlCmd = string.Format("SELECT {0} FROM {1} {2} {3}", columns, this._tableName, condition,
-                string.IsNullOrEmpty(orderByColumnName) ? string.Empty : string.Format("ORDER BY {1} {2}", orderByColumnName, sortType.ToString()));
+                string.IsNullOrEmpty(orderByColumnName) ? string.Empty : string.Format("ORDER BY {0} {1}", orderByColumnName, sortType.ToString()));
 
             return this.GetEntities(sqlCmd, parameterValues, columnNames);
         }
