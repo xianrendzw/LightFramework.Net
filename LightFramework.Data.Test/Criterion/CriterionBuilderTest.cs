@@ -24,7 +24,7 @@ namespace LightFramework.Data.Test.Criterion
         public void NoWhereCondition()
         {
             string expr = "1 = 1 ";
-            Assert.That(CriterionBuilder.Build(SqlClause.Empty)
+            Assert.That(CriterionBuilder.Build(SqlClause.None)
                 .Equals(expr, StringComparison.CurrentCultureIgnoreCase));
         }
 
@@ -49,7 +49,7 @@ namespace LightFramework.Data.Test.Criterion
         public void BetweenOperand()
         {
             string expr = " AND [columnName] = 'columnValue' ";
-            Assert.That(CriterionBuilder.Build("columnName", "columnValue",)
+            Assert.That(CriterionBuilder.Build("columnName", "columnValue")
                 .Equals(expr, StringComparison.CurrentCultureIgnoreCase));
         }
 
