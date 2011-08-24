@@ -7,21 +7,18 @@ namespace LightFramework.Data
 {
     public class LikeOperand : Operand
     {
-        public LikeOperand()
-            : base(new AndConj())
+        private string _columnName;
+        private object _columnValue;
+
+        public LikeOperand(string columnName, object columnValue)
         {
+            this._columnName = columnName;
+            this._columnValue = columnValue;
         }
 
-        public LikeOperand(IConj conj)
-            : base(conj)
+        public override string ToString()
         {
-        }
-
-        public override string BuilderCondition(string columnName, string columnValue)
-        {
-            columnValue = columnValue.Replace("-", "[-]").Replace("%", "[%]");
-
-            return _conj.BuildCondition(string.Format("{0} like '%{1}%'", columnName, columnValue));
+            return string.Format("{0} like '{1}'", this._columnName, this._columnValue);
         }
     }
 }

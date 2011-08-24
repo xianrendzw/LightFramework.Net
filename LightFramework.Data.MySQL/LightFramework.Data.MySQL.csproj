@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Criterion\IsNotNullOperand.cs" />
+    <Compile Include="Criterion\IsNullOperand.cs" />
     <Compile Include="DataAccess\BaseDataAccess.cs" />
     <Compile Include="DataAccess\BaseSelect.cs" />
     <Compile Include="DataAccess\SinglePKDataAccess.cs" />

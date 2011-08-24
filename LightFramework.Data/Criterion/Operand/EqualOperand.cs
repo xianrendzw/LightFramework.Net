@@ -7,19 +7,18 @@ namespace LightFramework.Data
 {
     public class EqualOperand : Operand
     {
-        public EqualOperand()
-            : base(new AndConj())
+        private string _columnName;
+        private object _columnValue;
+
+        public EqualOperand(string columnName, object columnValue)
         {
+            this._columnName = columnName;
+            this._columnValue = columnValue;
         }
 
-        public EqualOperand(IConj conj)
-            : base(conj)
+        public override string ToString()
         {
-        }
-
-        public override string BuilderCondition(string columnName, string columnValue)
-        {
-            return _conj.BuildCondition(string.Format("{0} = '{1}'", columnName, columnValue));
+            return string.Format("{0} = '{1}'", this._columnName, this._columnValue);
         }
     }
 }

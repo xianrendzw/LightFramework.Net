@@ -17,18 +17,59 @@ namespace LightFramework.Data
     }
 
     /// <summary>
-    /// SQL语句条件类型
+    /// SQL语句条件从句类型
     /// </summary>
-    public enum Condition : int
+    public enum SqlClause : int
     {
         /// <summary>
-        /// 不需要WHERE关键字
+        /// 无从句
         /// </summary>
-        Empty = 0,
+        None = 0,
 
         /// <summary>
-        /// 需要WHERE关键字
+        /// WHERE从句
         /// </summary>
-        Where = 1
+        Where = 1,
+
+        /// <summary>
+        /// Having从句
+        /// </summary>
+        Having = 2
+    }
+
+    /// <summary>
+    /// 括号类型
+    /// </summary>
+    public enum Bracket : int
+    {
+        /// <summary>
+        /// '('
+        /// </summary>
+        LeftBracket = 0,
+
+        /// <summary>
+        /// ')'
+        /// </summary>
+        RightBracket = 1,
+
+        /// <summary>
+        /// '['
+        /// </summary>
+        LeftSquare = 2,
+
+        /// <summary>
+        /// ']'
+        /// </summary>
+        RightSquare = 3,
+
+        /// <summary>
+        /// '{'
+        /// </summary>
+        LeftCurly = 4,
+
+        /// <summary>
+        /// '}'
+        /// </summary>
+        RightCurly = 5,
     }
 }

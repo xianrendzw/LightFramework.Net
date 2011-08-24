@@ -13,9 +13,9 @@ namespace LightFramework.Data
         /// 添加查询条件 Where:返回" WHERE 1=1 ";其他:返回 " 1=1 "
         /// </summary>
         /// <returns>Where:返回" WHERE 1=1 ";其他:返回 " 1=1 "</returns>
-        public static string Build(Condition condition)
+        public static string Build(SqlClause condition)
         {
-            return (condition == Condition.Where) ? " WHERE 1 = 1 " : " 1 = 1 ";
+            return (condition == SqlClause.Where) ? " WHERE 1 = 1 " : " 1 = 1 ";
         }
 
         /// <summary>
@@ -26,20 +26,20 @@ namespace LightFramework.Data
         /// <returns>" AND [columnName] = 'columnValue' "</returns>
         public static string Build(string columnName, object columnValue)
         {
-            return Build(columnName, columnValue, new EqualOperand());
+            return new EqualOperand(columnName, columnValue).ToString();
         }
 
-        public static string Build(string columnName, object columnValue, Operand operand)
+        public static string Build(Operand operand)
         {
-            string value = columnValue.ToString();
-            value = value.Replace("'", "''").Trim();
-            if (columnName.IndexOf(".") == -1)
-            {
-                columnName = string.Format("[{0}]", columnName);
-            }
-
-            return operand.BuilderCondition(columnName, value);
+            return string.Empty;
         }
+
+        //public static string Build(string columnName, object columnValue, Operand operand)
+        //{
+        //    string value = columnValue.ToString();
+        //    value = value.Replace("'", "''").Trim();
+        //    return operand.BuilderCondition(columnName, value);
+        //}
     }
 
 }

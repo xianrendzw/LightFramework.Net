@@ -1,25 +1,26 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-//namespace LightFramework.Data
-//{
-//    public class EqualOperand : Operand
-//    {
-//        public EqualOperand()
-//            : base(new AndConj())
-//        {
-//        }
+namespace LightFramework.Data
+{
+    public class BetweenOperand : Operand
+    {
+        private string _columnName;
+        private object _lowerValue;
+        private object _higherValue;
 
-//        public EqualOperand(IConj conj)
-//            : base(conj)
-//        {
-//        }
+        public BetweenOperand(string columnName, object lowerValue, object higherValue)
+        {
+            this._columnName = columnName;
+            this._lowerValue = lowerValue;
+            this._higherValue = higherValue;
+        }
 
-//        public override string BuilderCondition(string columnName, string columnValue)
-//        {
-//            return _conj.BuildCondition(string.Format("{0} = '{1}'", columnName, columnValue));
-//        }
-//    }
-//}
+        public override string ToString()
+        {
+            return string.Format("{0} BETWEEN {1} AND {2} ", this._columnName, this._lowerValue, this._higherValue);
+        }
+    }
+}
