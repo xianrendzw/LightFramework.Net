@@ -13,33 +13,21 @@ namespace LightFramework.Data
         /// 添加查询条件 Where:返回" WHERE 1=1 ";其他:返回 " 1=1 "
         /// </summary>
         /// <returns>Where:返回" WHERE 1=1 ";其他:返回 " 1=1 "</returns>
-        public static string Build(SqlClause condition)
+        public static string Build(SqlClause sqlClause)
         {
-            return (condition == SqlClause.Where) ? " WHERE 1 = 1 " : " 1 = 1 ";
+            return (sqlClause == SqlClause.Where) ? " WHERE 1 = 1 " : " 1 = 1 ";
         }
 
         /// <summary>
-        /// 添加查询条件 = 返回 " AND [columnName] = 'columnValue' "
+        /// 添加查询条件 = 返回 "[columnName] = 'columnValue' "
         /// </summary>
         /// <param name="columnName">列名</param>
         /// <param name="columnValue">查询值</param>
-        /// <returns>" AND [columnName] = 'columnValue' "</returns>
+        /// <returns>"[columnName] = 'columnValue' "</returns>
         public static string Build(string columnName, object columnValue)
         {
             return new EqualOperand(columnName, columnValue).ToString();
         }
-
-        public static string Build(Operand operand)
-        {
-            return string.Empty;
-        }
-
-        //public static string Build(string columnName, object columnValue, Operand operand)
-        //{
-        //    string value = columnValue.ToString();
-        //    value = value.Replace("'", "''").Trim();
-        //    return operand.BuilderCondition(columnName, value);
-        //}
     }
 
 }

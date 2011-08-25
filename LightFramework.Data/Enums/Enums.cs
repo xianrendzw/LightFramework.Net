@@ -43,33 +43,18 @@ namespace LightFramework.Data
     public enum Bracket : int
     {
         /// <summary>
-        /// '('
+        /// '()'
         /// </summary>
-        LeftBracket = 0,
+        Bracket = 0,
 
         /// <summary>
-        /// ')'
+        /// '[]'
         /// </summary>
-        RightBracket = 1,
+        Square = 1,
 
         /// <summary>
-        /// '['
+        /// '{}'
         /// </summary>
-        LeftSquare = 2,
-
-        /// <summary>
-        /// ']'
-        /// </summary>
-        RightSquare = 3,
-
-        /// <summary>
-        /// '{'
-        /// </summary>
-        LeftCurly = 4,
-
-        /// <summary>
-        /// '}'
-        /// </summary>
-        RightCurly = 5,
+        Curly = 2,
     }
 }

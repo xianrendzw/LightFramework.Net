@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LightFramework.Data
 {
-    public class BracketOperand : Operand
+    public class BracketOperand : DecoratorOperand
     {
         private Bracket _bracket;
 
@@ -18,20 +18,14 @@ namespace LightFramework.Data
         {
             switch (this._bracket)
             {
-                case Bracket.LeftBracket:
-                    return "(";
-                case Bracket.LeftSquare:
-                    return "[";
-                case Bracket.LeftCurly:
-                    return "{";
-                case Bracket.RightBracket:
-                    return ")";
-                case Bracket.RightSquare:
-                    return "]";
-                case Bracket.RightCurly:
-                    return "}";
+                case Bracket.Bracket:
+                    return string.Format("({0})", this._operand.ToString());
+                case Bracket.Square:
+                    return string.Format("[{0}]", this._operand.ToString());
+                case Bracket.Curly:
+                    return string.Format("{{{0}}}", this._operand.ToString());
                 default:
-                    return "";
+                    return string.Format("({0})", this._operand.ToString());
             }
         }
     }

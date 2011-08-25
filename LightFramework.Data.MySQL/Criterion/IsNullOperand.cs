@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LightFramework.Data.MySQL
 {
-    public class IsNullOperand : Operand
+    public class IsNullOperand : DecoratorOperand
     {
         private string _columnName;
 
@@ -16,7 +16,7 @@ namespace LightFramework.Data.MySQL
 
         public override string ToString()
         {
-            return string.Format("{0} Is Null", this._columnName);
+            return string.Format("{0} Is Null {1}", this._columnName,this._operand.ToString());
         }
     }
 }

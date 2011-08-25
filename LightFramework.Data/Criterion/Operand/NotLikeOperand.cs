@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LightFramework.Data
 {
-    public class NotLikeOperand : Operand
+    public class NotLikeOperand : DecoratorOperand
     {
         private string _columnName;
         private object _columnValue;
@@ -18,7 +18,8 @@ namespace LightFramework.Data
 
         public override string ToString()
         {
-            return string.Format("{0} NOT LIKE '{1}'", this._columnName, this._columnValue);
+            return string.Format("{0} NOT LIKE '{1}' {2} ",
+                this._columnName, this._columnValue,this._operand.ToString());
         }
     }
 }
