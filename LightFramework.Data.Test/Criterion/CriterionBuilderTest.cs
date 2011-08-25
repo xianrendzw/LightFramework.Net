@@ -32,81 +32,72 @@ namespace LightFramework.Data.Test.Criterion
         [Category("LightFramework.Data")]
         public void EqualOperand()
         {
-            string expr = " AND [columnName] = 'columnValue' ";
-            Assert.That(CriterionBuilder.Build("columnName", "columnValue")
-                .Equals(expr, StringComparison.CurrentCultureIgnoreCase));
-        }
-
-        [Test]
-        [Category("LightFramework.Data")]
-        public void ReplaceSingleQuotesOfColumnValue()
-        {
-            string expr = " AND [columnName] = 'column''Value' ";
-            Assert.That(CriterionBuilder.Build("columnName", "column'Value")
+            string expr = "[columnName] = 'columnValue' ";
+            Assert.That(new EqualOperand("columnName", "columnValue").ToString()
                 .Equals(expr, StringComparison.CurrentCultureIgnoreCase));
         }
 
         public void BetweenOperand()
         {
-            string expr = " AND [columnName] = 'columnValue' ";
-            Assert.That(CriterionBuilder.Build("columnName", "columnValue")
+            string expr = "columnName BETWEEN columnValue1 AND columnValue2  ";
+            Assert.That(new BetweenOperand("columnName", "columnValue1","columnValue2").ToString()
                 .Equals(expr, StringComparison.CurrentCultureIgnoreCase));
         }
 
         public void GreaterThanOperand()
         {
-            string expr = " AND [columnName] = 'columnValue' ";
-            Assert.That(CriterionBuilder.Build("columnName", "columnValue")
+            string expr = "columnName > columnValue   ";
+            Assert.That(new GreaterThanOperand("columnName", "columnValue").ToString()
                 .Equals(expr, StringComparison.CurrentCultureIgnoreCase));
         }
 
         public void GreaterThanOrEqualOperand()
         {
-            string expr = " AND [columnName] = 'columnValue' ";
-            Assert.That(CriterionBuilder.Build("columnName", "columnValue")
+            string expr = "[columnName] = 'columnValue' ";
+            Assert.That(new EqualOperand("columnName", "columnValue").ToString()
                 .Equals(expr, StringComparison.CurrentCultureIgnoreCase));
         }
 
         public void InOperand()
         {
             string expr = " AND [columnName] = 'columnValue' ";
-            Assert.That(CriterionBuilder.Build("columnName", "columnValue")
-                .Equals(expr, StringComparison.CurrentCultureIgnoreCase));
+            Assert.That(new EqualOperand("columnName", "columnValue").ToString()
+                 .Equals(expr, StringComparison.CurrentCultureIgnoreCase));
         }
 
         public void LessThanOperand()
         {
-            string expr = " AND [columnName] = 'columnValue' ";
-            Assert.That(CriterionBuilder.Build("columnName", "columnValue")
+            string expr = "[columnName] = 'columnValue' ";
+            Assert.That(new EqualOperand("columnName", "columnValue").ToString()
                 .Equals(expr, StringComparison.CurrentCultureIgnoreCase));
         }
 
         public void LessThanOrEqualOperand()
         {
-            string expr = " AND [columnName] = 'columnValue' ";
-            Assert.That(CriterionBuilder.Build("columnName", "columnValue")
-                .Equals(expr, StringComparison.CurrentCultureIgnoreCase));
+            string expr = "columnName] = 'columnValue' ";
+            Assert.That(new EqualOperand("columnName", "columnValue").ToString()
+                 .Equals(expr, StringComparison.CurrentCultureIgnoreCase));
         }
 
         public void LikeOperand()
         {
-            string expr = " AND [columnName] = 'columnValue' ";
-            Assert.That(CriterionBuilder.Build("columnName", "columnValue")
+            string expr = "[columnName] = 'columnValue' ";
+            Assert.That(new EqualOperand("columnName", "columnValue").ToString()
                 .Equals(expr, StringComparison.CurrentCultureIgnoreCase));
         }
 
         public void NotEqualOperand()
         {
-            string expr = " AND [columnName] = 'columnValue' ";
-            Assert.That(CriterionBuilder.Build("columnName", "columnValue")
+            string expr = "[columnName] = 'columnValue' ";
+            Assert.That(new EqualOperand("columnName", "columnValue").ToString()
                 .Equals(expr, StringComparison.CurrentCultureIgnoreCase));
         }
 
         public void NotInOperand()
         {
-            string expr = " AND [columnName] = 'columnValue' ";
-            Assert.That(CriterionBuilder.Build("columnName", "columnValue")
-                .Equals(expr, StringComparison.CurrentCultureIgnoreCase));
+            string expr = "[columnName] = 'columnValue' ";
+            Assert.That(new NotInOperand("columnName", "columnValue").ToString()
+                 .Equals(expr, StringComparison.CurrentCultureIgnoreCase));
         }
     }
 }
