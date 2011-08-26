@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Criterion\CriterionBuilderTest.cs" />
+    <Compile Include="Criterion\RestrictionsTest.cs" />
     <Compile Include="DTO\AccountDTO.cs" />
     <Compile Include="DTO\CategoryDTO.cs" />
     <Compile Include="DTO\ItemDTO.cs" />

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LightFramework.Data
 {
-    public class ClauseOperand : Operand
+    public class ClauseOperand : DecoratorOperand
     {
         private SqlClause _sqlClause = SqlClause.None;
 
@@ -16,7 +16,8 @@ namespace LightFramework.Data
 
         public override string ToString()
         {
-            return this._sqlClause == SqlClause.None ? "" : this._sqlClause.ToString();
+            string strSqlClause = this._sqlClause == SqlClause.None ? "" : this._sqlClause.ToString();
+            return string.Format("{0} {1}", strSqlClause, this._operand.ToString());
         }
     }
 }

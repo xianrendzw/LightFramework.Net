@@ -62,7 +62,7 @@
     <Compile Include="Criterion\Operand\NotLikeOperand.cs" />
     <Compile Include="Criterion\Operand\Operand.cs" />
     <Compile Include="Criterion\Operand\ClauseOperand.cs" />
-    <Compile Include="Criterion\CriterionBuilder.cs" />
+    <Compile Include="Criterion\Restrictions.cs" />
     <Compile Include="Criterion\Operand\OrConjOperand.cs" />
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="Collections\PageData.cs" />
