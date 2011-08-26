@@ -9,9 +9,10 @@ namespace LightFramework.Data
     {
         protected Operand _operand = new NoneOperand();
 
-        public virtual void Append(Operand operand)
+        public virtual DecoratorOperand Append(Operand operand)
         {
             this._operand = operand;
+            return this;
         }
     }
 }

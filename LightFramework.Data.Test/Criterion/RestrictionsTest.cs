@@ -97,8 +97,18 @@ namespace LightFramework.Data.Test.Criterion
             Assert.That(new NotLikeOperand("columnName", "%columnValue%").ToString(), Is.EqualTo(expr));
         }
 
+        [Test]
+        [Category("LightFramework.Data")]
         public void CompositeOperand()
         {
+            Operand operand = Restrictions.Clause(SqlClause.Where)
+                .Append(Restrictions.Equal("Name", "TomDeng"))
+                .Append(Restrictions.And)
+                .Append(Restrictions.Equal("Age", 30))
+                .Append(Restrictions.And)
+                .Append(Restrictions.Between("Birth", DateTime.Now, DateTime.Now.AddDays(1)));
+
+            Assert.That(operand.ToString(), Is.EqualTo("Where"));
         }
     }
 }

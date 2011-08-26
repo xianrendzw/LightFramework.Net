@@ -5,7 +5,7 @@ using System.Text;
 namespace LightFramework.Data
 {
     /// <summary>
-    /// 构造SQL语句的工具类
+    /// 构造SQL语句的条件类
     /// </summary>
     public static class Restrictions
     {
