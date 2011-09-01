@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LightFramework.Data
 {
-    public class OrConjOperand : DecoratorOperand
+    public class OrConjOperand : Operand
     {
         public OrConjOperand()
         {
@@ -13,7 +13,7 @@ namespace LightFramework.Data
 
         public override string ToString()
         {
-            return string.Format(" OR ({0}) ",this._operand.ToString());
+            return " OR ";
         }
     }
 }

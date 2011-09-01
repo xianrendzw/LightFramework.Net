@@ -47,7 +47,6 @@
     <Compile Include="Biz\ViewDataAccessBiz.cs" />
     <Compile Include="Criterion\Operand\AndConjOperand.cs" />
     <Compile Include="Criterion\Operand\BetweenOperand.cs" />
-    <Compile Include="Criterion\Operand\DecoratorOperand.cs" />
     <Compile Include="Criterion\Operand\EqualOperand.cs" />
     <Compile Include="Criterion\Operand\GreaterThanOperand.cs" />
     <Compile Include="Criterion\Operand\GreaterThanOrEqualOperand.cs" />

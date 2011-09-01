@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LightFramework.Data
 {
-    public class AndConjOperand : DecoratorOperand
+    public class AndConjOperand : Operand
     {
         public AndConjOperand()
         {
@@ -13,7 +13,7 @@ namespace LightFramework.Data
 
         public override string ToString()
         {
-            return string.Format(" AND ({0}) ",this._operand.ToString());
+            return " AND ";
         }
     }
 }

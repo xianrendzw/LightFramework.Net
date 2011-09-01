@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LightFramework.Data
 {
-    public class InOperand : DecoratorOperand
+    public class InOperand : Operand
     {
         private string _columnName;
         private object _columnValue;
@@ -18,8 +18,7 @@ namespace LightFramework.Data
 
         public override string ToString()
         {
-            return string.Format("{0} IN ({1}) {2} ",
-                this._columnName, this._columnValue, this._operand.ToString());
+            return string.Format("{0} IN ({1}) ",this._columnName, this._columnValue);
         }
     }
 }

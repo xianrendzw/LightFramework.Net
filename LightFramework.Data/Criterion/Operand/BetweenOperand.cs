@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LightFramework.Data
 {
-    public class BetweenOperand : DecoratorOperand
+    public class BetweenOperand : Operand
     {
         private string _columnName;
         private object _lowerValue;
@@ -20,8 +20,8 @@ namespace LightFramework.Data
 
         public override string ToString()
         {
-            return string.Format("{0} BETWEEN {1} AND {2} {3} ",
-                this._columnName, this._lowerValue, this._higherValue,this._operand.ToString());
+            return string.Format("{0} BETWEEN {1} AND {2} ",
+                this._columnName, this._lowerValue, this._higherValue);
         }
     }
 }

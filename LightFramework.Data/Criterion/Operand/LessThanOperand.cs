@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LightFramework.Data
 {
-    public class LessThanOperand : DecoratorOperand
+    public class LessThanOperand : Operand
     {
         private string _columnName;
         private object _columnValue;
@@ -18,8 +18,7 @@ namespace LightFramework.Data
 
         public override string ToString()
         {
-            return string.Format("{0} < {1} {2} ", 
-                this._columnName, this._columnValue,this._operand.ToString());
+            return string.Format("{0} < {1} ", this._columnName, this._columnValue);
         }
     }
 }

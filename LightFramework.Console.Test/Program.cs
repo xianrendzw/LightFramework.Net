@@ -18,7 +18,7 @@ namespace LightFramework.Console.Test
                 .Append(Restrictions.And)
                 .Append(Restrictions.Between("Birth", DateTime.Now, DateTime.Now.AddDays(1)));
 
-            System.Console.WriteLine(operand);
+            System.Console.WriteLine(operand.Compile());
             System.Console.WriteLine("Finished");
             System.Console.Read();
         }

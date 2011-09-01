@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LightFramework.Data.MySQL
 {
-    public class IsNullOperand : DecoratorOperand
+    public class IsNullOperand : Operand
     {
         private string _columnName;
 
