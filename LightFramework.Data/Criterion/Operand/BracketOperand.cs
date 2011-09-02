@@ -14,18 +14,16 @@ namespace LightFramework.Data
             this._bracket = bracket;
         }
 
-        public override string ToString()
+        protected override string ToExpression()
         {
             switch (this._bracket)
             {
-                case Bracket.Bracket:
-                    return string.Format("({0})");
-                case Bracket.Square:
-                    return string.Format("[{0}]");
-                case Bracket.Curly:
-                    return string.Format("{{{0}}}");
+                case Bracket.Left:
+                    return "(";
+                case Bracket.Rgiht:
+                    return ")";
                 default:
-                    return string.Format("({0})");
+                    return string.Empty;
             }
         }
     }

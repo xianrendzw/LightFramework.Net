@@ -14,7 +14,7 @@ namespace LightFramework.Data
             this._sqlClause = sqlClause;
         }
 
-        public override string ToString()
+        protected override string ToExpression()
         {
             string strSqlClause = this._sqlClause == SqlClause.None ? "" : this._sqlClause.ToString();
             return string.Format("{0} ", strSqlClause);

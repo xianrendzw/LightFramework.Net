@@ -9,8 +9,6 @@ namespace LightFramework.Data
     {
         protected List<Operand> _operands;
 
-        public abstract override string ToString();
-
         public virtual Operand Append(Operand operand)
         {
             if (this._operands == null)
@@ -20,20 +18,22 @@ namespace LightFramework.Data
             return this;
         }
 
-        public virtual string Compile()
+        public override string ToString()
         {
             if (this._operands == null)
-                return this.ToString();
+                return this.ToExpression();
 
             StringBuilder expr = new StringBuilder();
-            expr.Append(this.ToString());
+            expr.Append(this.ToExpression());
 
             foreach (Operand operand in this._operands)
             {
-                expr.Append(operand.Compile());
+                expr.Append(operand.ToString());
             }
 
             return expr.ToString();
         }
+
+        protected abstract string ToExpression();
     }
 }

@@ -16,7 +16,7 @@ namespace LightFramework.Data
             this._columnValue = columnValue;
         }
 
-        public override string ToString()
+        protected override string ToExpression()
         {
             return string.Format("{0} like '{1}' ",this._columnName, this._columnValue);
         }

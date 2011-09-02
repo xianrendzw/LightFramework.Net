@@ -14,9 +14,9 @@ namespace LightFramework.Data.MySQL
             this._columnName = columnName;
         }
 
-        public override string ToString()
+        protected override string ToExpression()
         {
-            return string.Format("{0} Is Null {1}", this._columnName,this._operand.ToString());
+            return string.Format("{0} Is Null ", this._columnName);
         }
     }
 }

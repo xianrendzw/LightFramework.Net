@@ -11,7 +11,7 @@ namespace LightFramework.Data
         {
         }
 
-        public override string ToString()
+        protected override string ToExpression()
         {
             return " AND ";
         }

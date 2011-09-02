@@ -16,9 +16,13 @@ namespace LightFramework.Console.Test
                 .Append(Restrictions.And)
                 .Append(Restrictions.Equal("Age", 30))
                 .Append(Restrictions.And)
-                .Append(Restrictions.Between("Birth", DateTime.Now, DateTime.Now.AddDays(1)));
+                .Append(Restrictions.Bracket(Bracket.Left))
+                .Append(Restrictions.Between("Birth", DateTime.Now, DateTime.Now.AddDays(1)))
+                .Append(Restrictions.And)
+                .Append(Restrictions.LessThan("Weight", 200))
+                .Append(Restrictions.Bracket(Bracket.Rgiht));
 
-            System.Console.WriteLine(operand.Compile());
+            System.Console.WriteLine(operand);
             System.Console.WriteLine("Finished");
             System.Console.Read();
         }

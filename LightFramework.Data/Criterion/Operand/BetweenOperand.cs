@@ -18,7 +18,7 @@ namespace LightFramework.Data
             this._higherValue = higherValue;
         }
 
-        public override string ToString()
+        protected override string ToExpression()
         {
             return string.Format("{0} BETWEEN {1} AND {2} ",
                 this._columnName, this._lowerValue, this._higherValue);
