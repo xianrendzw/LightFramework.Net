@@ -117,5 +117,26 @@ namespace LightFramework.Data.Test.Criterion
 
             Assert.That(operand.ToString(), Is.EqualTo(sqlCondition));
         }
+
+        [Test]
+        [Category("LightFramework.Data")]
+        public void NestedCompositeOperand()
+        {
+            string sqlCondition = "Where Name = TomDeng  AND Age = 29  AND (Weight BETWEEN 100 AND 180  AND Salary < 20w )";
+
+            Operand operand = Restrictions.Clause(SqlClause.Where)
+               .Append(Restrictions.Equal("Name", "TomDeng"))
+               .Append(Restrictions.And)
+               .Append(Restrictions.Equal("Age", 29)
+                   .Append(Restrictions.And)
+                   .Append(Restrictions.Bracket(Bracket.Left))
+                   .Append(Restrictions.Between("Weight", 100, 180))
+                   .Append(Restrictions.And)
+                   .Append(Restrictions.LessThan("Salary", "20w"))
+                   .Append(Restrictions.Bracket(Bracket.Rgiht))
+               );
+
+            Assert.That(operand.ToString(), Is.EqualTo(sqlCondition));
+        }
     }
 }
