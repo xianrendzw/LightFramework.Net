@@ -25,7 +25,6 @@ namespace LightFramework.Data
 
             StringBuilder expr = new StringBuilder();
             expr.Append(this.ToExpression());
-
             foreach (Operand operand in this._operands)
             {
                 expr.Append(operand.ToString());

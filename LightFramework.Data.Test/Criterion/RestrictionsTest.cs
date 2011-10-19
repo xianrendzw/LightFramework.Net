@@ -138,5 +138,14 @@ namespace LightFramework.Data.Test.Criterion
 
             Assert.That(operand.ToString(), Is.EqualTo(sqlCondition));
         }
+
+        [Test]
+        [Category("LightFramework.Data")]
+        public void NoSubOperands()
+        {
+            string sqlCondition = " ";
+            Operand operand = Restrictions.Clause(SqlClause.Where);
+            Assert.That(operand.ToString(), Is.EqualTo(sqlCondition));
+        }
     }
 }

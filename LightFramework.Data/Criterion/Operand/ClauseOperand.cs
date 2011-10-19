@@ -14,6 +14,14 @@ namespace LightFramework.Data
             this._sqlClause = sqlClause;
         }
 
+        public override string ToString()
+        {
+            if (this._operands == null)
+                this._sqlClause = SqlClause.None;
+
+            return base.ToString();
+        }
+
         protected override string ToExpression()
         {
             string strSqlClause = this._sqlClause == SqlClause.None ? "" : this._sqlClause.ToString();
