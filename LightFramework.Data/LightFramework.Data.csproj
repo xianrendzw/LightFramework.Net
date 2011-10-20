@@ -64,6 +64,7 @@
     <Compile Include="Criterion\Operand\ClauseOperand.cs" />
     <Compile Include="Criterion\Restrictions.cs" />
     <Compile Include="Criterion\Operand\OrConjOperand.cs" />
+    <Compile Include="Entity\BaseEntity.cs" />
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="Collections\PageData.cs" />
     <Compile Include="Interfaces\IBaseDataAccess.cs" />
