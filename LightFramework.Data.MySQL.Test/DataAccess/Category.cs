@@ -34,7 +34,7 @@ namespace LightFramework.Data.MySQL.Test.DataAccess
             if (dr == null)
                 throw new ArgumentNullException("dr", "未将对象引用到实例");
 
-            return EntityMapper.GetEntity<CategoryDTO>(dr, new CategoryDTO(), metaDataTable);
+            return EntityMapper.GetEntity(dr, new CategoryDTO(), metaDataTable);
         }
 
         protected override DataFieldMapTable GetDataFieldMapTable(CategoryDTO dto, params string[] columnNames)
@@ -42,7 +42,7 @@ namespace LightFramework.Data.MySQL.Test.DataAccess
             if (dto == null)
                 throw new ArgumentNullException("dto", "未将对象引用到实例");
 
-            return EntityMapper.GetMapTable<CategoryDTO>(dto, columnNames);
+            return EntityMapper.GetMapTable(dto, columnNames);
         }
 
         #endregion
