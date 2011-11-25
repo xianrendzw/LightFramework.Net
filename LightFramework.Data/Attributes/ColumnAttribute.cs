@@ -94,6 +94,12 @@ namespace LightFramework.Data
         public bool IsPrimaryKey { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="ColumnAttribute"/> is IsIgnored for Insert or Update Database.
+        /// </summary>
+        /// <value><c>true</c> if IsIgnored; otherwise, <c>false</c>.</value>
+        public bool IsIgnored { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether this <see cref="ColumnAttribute"/> is IsForeignKey.
         /// </summary>
         /// <value><c>true</c> if IsForeignKey; otherwise, <c>false</c>.</value>

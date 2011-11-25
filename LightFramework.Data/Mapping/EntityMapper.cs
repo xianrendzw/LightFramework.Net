@@ -97,7 +97,7 @@ namespace LightFramework.Data
             foreach (string key in metaDataTable.Columns.Keys)
             {
                 var metaColumn = metaDataTable.Columns[key];
-                if (metaColumn.Attribute.IsIdentity) continue;
+                if (metaColumn.Attribute.IsIgnored) continue;
 
                 mapTable.Add(metaColumn.Name, GetColumnValue(metaColumn, entity));
             }
