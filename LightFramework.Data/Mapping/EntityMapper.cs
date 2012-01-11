@@ -97,7 +97,7 @@ namespace LightFramework.Data
             foreach (string key in metaDataTable.Columns.Keys)
             {
                 var metaColumn = metaDataTable.Columns[key];
-                if (metaColumn.Attribute.IsIgnored) continue;
+                if (IsIgnored(metaColumn)) continue;
 
                 mapTable.Add(metaColumn.Name, GetColumnValue(metaColumn, entity));
             }
@@ -113,16 +113,18 @@ namespace LightFramework.Data
             {
                 string colName = columnName.Trim().ToLower();
                 if (!metaDataTable.Columns.ContainsKey(colName) ||
-                    metaDataTable.Columns[colName].Attribute.IsIdentity)
-                {
-                    continue;
-                }
+                    IsIgnored(metaDataTable.Columns[colName])) continue;
 
                 var metaColumn = metaDataTable.Columns[colName];
                 mapTable.Add(metaColumn.Name, GetColumnValue(metaColumn, entity));
             }
 
             return mapTable;
+        }
+
+        private static bool IsIgnored(MetaDataColumn metaColumn)
+        {
+            return (metaColumn.Attribute.IsIgnored || metaColumn.Attribute.IsIdentity);
         }
 
         /// <summary>
