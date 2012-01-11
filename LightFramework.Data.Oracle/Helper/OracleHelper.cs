@@ -17,9 +17,8 @@
 using System;
 using System.Data;
 using System.Xml;
-using System.Data.OracleClient;
 using System.Collections;
-
+using Oracle.DataAccess.Client;
 
 namespace LightFramework.Data
 {

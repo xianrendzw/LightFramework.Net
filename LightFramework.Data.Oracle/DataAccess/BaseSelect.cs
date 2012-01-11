@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Data;
-using System.Data.OracleClient;
+using Oracle.DataAccess.Client;
 
 namespace LightFramework.Data.Oracle
 {
@@ -365,15 +365,16 @@ namespace LightFramework.Data.Oracle
                 throw new ArgumentException("指定的条件,要求不带SQL语句Where关键字的条件", "condition");
 
             OracleParameter[] parameters = {
-                                            new OracleParameter("@tblName",OracleType.VarChar, 255),
-                                            new OracleParameter("@fldName", OracleType.VarChar, 255),
-                                            new OracleParameter("@OrderfldName", OracleType.VarChar, 255),
-                                            new OracleParameter("@StatfldName", OracleType.VarChar, 255),
-                                            new OracleParameter("@PageSize", OracleType.Int32),
-                                            new OracleParameter("@PageIndex", OracleType.Int32),
-                                            new OracleParameter("@IsReCount", OracleType.Int32),
-                                            new OracleParameter("@OrderType", OracleType.Int32),
-                                            new OracleParameter("@strWhere", OracleType.VarChar,1000)
+                                              
+                                            new OracleParameter("@tblName",OracleDbType.Varchar2, 255),
+                                            new OracleParameter("@fldName", OracleDbType.Varchar2, 255),
+                                            new OracleParameter("@OrderfldName", OracleDbType.Varchar2, 255),
+                                            new OracleParameter("@StatfldName", OracleDbType.Varchar2, 255),
+                                            new OracleParameter("@PageSize", OracleDbType.Int32),
+                                            new OracleParameter("@PageIndex", OracleDbType.Int32),
+                                            new OracleParameter("@IsReCount", OracleDbType.Int32),
+                                            new OracleParameter("@OrderType", OracleDbType.Int32),
+                                            new OracleParameter("@strWhere", OracleDbType.Varchar2,1000)
                                         };
             parameters[0].Value = this._tableName;
             parameters[1].Value = "*";
