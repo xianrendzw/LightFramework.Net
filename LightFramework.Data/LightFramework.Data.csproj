@@ -51,6 +51,7 @@
     <Compile Include="Criterion\Operand\EqualOperand.cs" />
     <Compile Include="Criterion\Operand\GreaterThanOperand.cs" />
     <Compile Include="Criterion\Operand\GreaterThanOrEqualOperand.cs" />
+    <Compile Include="Criterion\Operand\GroupByOperand.cs" />
     <Compile Include="Criterion\Operand\InOperand.cs" />
     <Compile Include="Criterion\Operand\BracketOperand.cs" />
     <Compile Include="Criterion\Operand\LessThanOperand.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Criterion\Operand\NotLikeOperand.cs" />
     <Compile Include="Criterion\Operand\Operand.cs" />
     <Compile Include="Criterion\Operand\ClauseOperand.cs" />
+    <Compile Include="Criterion\Operand\OrderByOperand.cs" />
     <Compile Include="Criterion\Restrictions.cs" />
     <Compile Include="Criterion\Operand\OrConjOperand.cs" />
     <Compile Include="Entity\BaseEntity.cs" />

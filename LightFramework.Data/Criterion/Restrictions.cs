@@ -88,6 +88,16 @@ namespace LightFramework.Data
         {
             return new NotLikeOperand(columnName, columnValue);
         }
+
+        public static OrderByOperand OrderBy(SortTypeEnum sortType, params string[] columnNames)
+        {
+            return new OrderByOperand(sortType, columnNames);
+        }
+
+        public static GroupByOperand GroupBy(params string[] columnNames)
+        {
+            return new GroupByOperand(columnNames);
+        }
     }
 
 }
