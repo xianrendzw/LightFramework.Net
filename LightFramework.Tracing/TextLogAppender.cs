@@ -29,13 +29,13 @@ namespace LightFramework.Tracing
         public virtual void Append(MetaLog metaLog)
         {
             TxtMetaLog txtlog = metaLog as TxtMetaLog;
-            string filePath = txtlog.Path + @"log\" + txtlog.LogDateTime.ToShortDateString();
+            string filePath = Path.Combine(txtlog.Path, "log", txtlog.LogDateTime.ToString("yyyyMMdd"));
 
             //如果目录不存在,则创建目录
             if (!Directory.Exists(filePath)) 
                 Directory.CreateDirectory(filePath);
             //完整格式的文件路径
-            string fullFileName = filePath + @"\" + txtlog.LogFileName;
+            string fullFileName = Path.Combine(filePath, txtlog.LogFileName);
 
             //写文件
             StreamWriter sw = new StreamWriter(fullFileName, true, Encoding.GetEncoding(metaLog.Encoding));
