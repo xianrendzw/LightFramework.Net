@@ -318,7 +318,7 @@ namespace LightFramework.Data.MySQL
             if (pageIndex < 0) pageIndex = 0;
 
             //设置分页起点与终点
-            int startRowId = (pageIndex - 1) * pageSize;
+            int startRowId = pageIndex * pageSize;
             //获取筛选列
             string columns = this.GetColumns(columnNames);
 
@@ -544,10 +544,13 @@ namespace LightFramework.Data.MySQL
             {
                 try
                 {
-                    while (dr.Read())
+                    do
                     {
-                        entities.Add(drToEntityAction(dr, metaDataTable, columnNames));
-                    }
+                        while (dr.Read())
+                        {
+                            entities.Add(drToEntityAction(dr, metaDataTable, columnNames));
+                        }
+                    } while (dr.NextResult());
                 }
                 catch (MySqlException ex)
                 {

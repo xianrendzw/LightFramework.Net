@@ -560,10 +560,13 @@ namespace LightFramework.Data.SQLServer
             {
                 try
                 {
-                    while (dr.Read())
+                    do
                     {
-                        entities.Add(drToEntityAction(dr, metaDataTable, columnNames));
-                    }
+                        while (dr.Read())
+                        {
+                            entities.Add(drToEntityAction(dr, metaDataTable, columnNames));
+                        }
+                    } while (dr.NextResult());
                 }
                 catch (SqlException ex)
                 {
