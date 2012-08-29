@@ -28,8 +28,13 @@ namespace JingQiao.HNCE.DTO
                 Type type = this.GetType();
                 PropertyInfo pi = type.GetProperty(propertyName);
                 if (pi != null) return pi.GetValue(this, null);
-
                 return null;
+            }
+            set
+            {
+                Type type = this.GetType();
+                PropertyInfo pi = type.GetProperty(propertyName);
+                if (pi != null) pi.SetValue(this, value, null);
             }
         }
 
