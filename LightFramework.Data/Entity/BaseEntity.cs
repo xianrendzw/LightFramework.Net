@@ -6,7 +6,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Reflection;
 
-namespace JingQiao.HNCE.DTO
+namespace LightFramework.Data
 {
     /// <summary>
     /// 数据实体基类。
