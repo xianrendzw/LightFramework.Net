@@ -28,7 +28,6 @@ namespace LightFramework.Data
                 Type type = this.GetType();
                 PropertyInfo pi = type.GetProperty(propertyName);
                 if (pi != null) return pi.GetValue(this, null);
-
                 return null;
             }
             set
