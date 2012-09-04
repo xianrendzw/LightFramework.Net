@@ -11,7 +11,7 @@ namespace LightFramework.Data.SQLServer
     /// BaseDataAccess类提供对SQLServer数据库公共数据访问的抽象基类。
     /// </summary>
     /// <typeparam name="T">通用类型</typeparam>
-    public abstract class BaseDataAccess<T> : BaseSelect<T>, IBaseDataAccess<T>
+    public abstract class BaseDataAccess<T> : BaseSelect<T>, IBaseDataAccess<T> where T : BaseEntity
     {
         #region 构造函数
 
@@ -77,11 +77,11 @@ namespace LightFramework.Data.SQLServer
             foreach (string key in mapTable.Keys)
             {
                 fields.AppendFormat("[{0}],", key);
-                values.AppendFormat("‘{0}’,", mapTable[key].ToString().Replace("'", "''"));
+                values.AppendFormat("'{0}',", mapTable[key]);
             }
 
             string commandText = string.Format("INSERT INTO [{0}] ({1}) VALUES ({2})",
-                targetTable, fields.ToString().Trim(','), values.ToString().Trim(','));
+                targetTable, fields.ToString().TrimEnd(','), values.ToString().TrimEnd(','));
             return commandText;
         }
 
@@ -274,5 +274,186 @@ namespace LightFramework.Data.SQLServer
         }
 
         #endregion
+
+        #region 针对SqlServer数据库的特定方法
+
+        /// <summary>
+        /// 向数据库中批量添加记录
+        /// </summary>
+        /// <param name="entities">记录集合</param>
+        /// <param name="method">批量添加方式</param>
+        /// <returns>影响的行数</returns>
+        public virtual int Insert(List<T> entities, SqlInsertMethod method)
+        {
+            if (method == SqlInsertMethod.MultiSqlText)
+                return this.InsertByMutiSqlText(entities);
+
+            if (method == SqlInsertMethod.SqlBulkCopy)
+                return this.InsertBySqlBulkCopy(entities);
+
+            if (method == SqlInsertMethod.TableValue)
+                return this.InsertByTableValue(entities);
+
+            return -1;
+        }
+
+        /// <summary>
+        /// 使用insert into ... select ... from 语句从指定表中批量向当前表中添加数据。
+        /// </summary>
+        /// <param name="fromTableName">源数据表名</param>
+        /// <param name="columnNames">筛选的列表集合</param>
+        /// <returns>影响的行数</returns>
+        public virtual int Insert(string fromTableName, params string[] columnNames)
+        {
+            if (string.IsNullOrEmpty(fromTableName))
+                throw new ArgumentNullException("fromTableName");
+
+            string columns = this.GetColumns(columnNames);
+            string insertColumns = columnNames.Equals("*") ? string.Empty : string.Format("({0})", columns);
+            string sqlCmd = string.Format("insert into {0} {1} select {1} from {2}",
+                this._tableName, insertColumns, columns, fromTableName);
+
+            return SqlHelper.ExecuteNonQuery(this._connectionString, CommandType.Text, sqlCmd);
+        }
+
+        #endregion
+
+        #region protected 成员
+
+        /// <summary>
+        /// 使用多条sql语句用分号连接的方式向数据库中批量添加数据。
+        /// </summary>
+        /// <param name="entities">记录集合</param>
+        /// <returns>影响的行数</returns>
+        protected virtual int InsertByMutiSqlText(List<T> entities)
+        {
+            if (entities == null || entities.Count == 0)
+                throw new ArgumentNullException("entites");
+
+            StringBuilder batchSqlText = new StringBuilder();
+            foreach (T entity in entities)
+            {
+                var dataFieldMapTable = this.GetDataFieldMapTable(entity);
+                batchSqlText.AppendFormat("{0};", this.GenerateInsertSql(dataFieldMapTable, entity.EntityName));
+            }
+
+            return SqlHelper.ExecuteNonQuery(this._connectionString, CommandType.Text, batchSqlText.ToString());
+        }
+
+        /// <summary>
+        /// 使用SqlBulkCopy方式向表中批量添加数据。
+        /// </summary>
+        /// <param name="entities">记录集合</param>
+        /// <returns>0表示成功，其他失败</returns>
+        protected virtual int InsertBySqlBulkCopy(List<T> entities)
+        {
+            if (entities == null || entities.Count == 0)
+                throw new ArgumentNullException("entites");
+
+            DataTable dataTable = this.GetDataTable(entities);
+            using (SqlBulkCopy bulkCopy = new SqlBulkCopy(this._connectionString))
+            {
+                bulkCopy.DestinationTableName = this._tableName;
+                bulkCopy.BatchSize = dataTable.Rows.Count;
+
+                try
+                {
+                    bulkCopy.WriteToServer(dataTable);
+                }
+                catch (Exception ex)
+                {
+                    string message = string.Format("[SQL]:{0},[Exception]:{1}", "BulkCopy", ex.ToString());
+                    throw new ApplicationException(message);
+                }
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// 使用SQLServer2008及以上版本表值参数方式向表中批量添加数据,需要先在数据库创建与目标表结构相同的表。
+        /// 且表名必须为tvps。
+        /// </summary>
+        /// <param name="entities">记录集合</param>
+        /// <returns>影响行数</returns>
+        protected virtual int InsertByTableValue(List<T> entities)
+        {
+            if (entities == null || entities.Count == 0)
+                throw new ArgumentNullException("entites");
+
+            using (SqlConnection conn = new SqlConnection(this._connectionString))
+            {
+                string sql = string.Format("insert into {0} select * from @tableName;", this._tableName);
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                SqlParameter param = cmd.Parameters.AddWithValue("@tableName", this.GetDataTable(entities));
+                param.SqlDbType = SqlDbType.Structured;
+                param.TypeName = "dbo.tvps";
+
+                try
+                {
+                    conn.Open();
+                    return cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    string message = string.Format("[SQL]:{0},[Exception]:{1}", "TableValueParameter", ex.ToString());
+                    throw new ApplicationException(message);
+                }
+            }
+        }
+
+        #endregion
+
+        #region private 成员
+
+        /// <summary>
+        /// 创建实体集合对应的DataTable对象
+        /// </summary>
+        /// <param name="entities">实体记录集合</param>
+        /// <returns>DataTable对象</returns>
+        private DataTable GetDataTable(List<T> entities)
+        {
+            DataTable dataTable = new DataTable();
+            MetaDataTable metaDataTable = new MetaDataTable(typeof(T), this._tableName);
+
+            foreach (var kp in metaDataTable.Columns)
+            {
+                var dataColumn = new DataColumn(kp.Key, kp.Value.DataType);
+                dataTable.Columns.Add(dataColumn);
+            }
+
+            foreach (T entity in entities)
+            {
+                DataRow dr = dataTable.NewRow();
+                foreach (var kp in metaDataTable.Columns)
+                    dr[kp.Key] = kp.Value.Member.GetValue(entity, null);
+                dataTable.Rows.Add(dr);
+            }
+
+            return dataTable;
+        }
+
+        #endregion
+    }
+
+    /// <summary>
+    /// Sql数据插入方法。
+    /// </summary>
+    public enum SqlInsertMethod
+    {
+        /// <summary>
+        /// 多条sql用分号连接
+        /// </summary>
+        MultiSqlText,
+
+        /// <summary>
+        /// 使用SqlBulkCopy
+        /// </summary>
+        SqlBulkCopy,
+
+        /// <summary>
+        /// 使用SQLServer2008及以上版本表值参数
+        /// </summary>
+        TableValue
     }
 }

@@ -6,7 +6,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Reflection;
 
-namespace JingQiao.HNCE.DTO
+namespace LightFramework.Data
 {
     /// <summary>
     /// 数据实体基类。
@@ -31,7 +31,15 @@ namespace JingQiao.HNCE.DTO
 
                 return null;
             }
+            set
+            {
+                Type type = this.GetType();
+                PropertyInfo pi = type.GetProperty(propertyName);
+                if (pi != null) pi.SetValue(this, value, null);
+            }
         }
+
+        #endregion
 
         /// <summary>
         /// 排除实体对象指定一系列常量值后的集合。
@@ -57,7 +65,21 @@ namespace JingQiao.HNCE.DTO
             return exclueFields.Select(field => field.GetValue(this).ToString()).ToArray();
         }
 
-        #endregion
+        /// <summary>
+        /// 获取当前实体的所有ColumnAttribute特性的Name值。
+        /// </summary>
+        /// <returns>ColumnAttribute特性的Name值集合</returns>
+        public string[] GetColumnAtttibuteNames()
+        {
+            PropertyInfo[] properties = this.GetType().GetProperties();
+            return properties.Select(x => ((ColumnAttribute)Attribute.GetCustomAttribute(x, typeof(ColumnAttribute))).Name)
+                .ToArray();
+        }
+
+        /// <summary>
+        /// 获取与设置当前实体名称(对应数据库中的表名)。
+        /// </summary>
+        public string EntityName { get; set; }
     }
 }
 

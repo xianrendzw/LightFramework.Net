@@ -11,7 +11,7 @@ namespace LightFramework.Data.SQLServer
     /// ViewDataAccess类提供对SQLServer数据库视图数据访问的抽象基类。
     /// </summary>
     /// <typeparam name="T">通用类型</typeparam>
-    public abstract class ViewDataAccess<T> : BaseSelect<T>, IViewDataAccess<T>
+    public abstract class ViewDataAccess<T> : BaseSelect<T>, IViewDataAccess<T> where T : BaseEntity
     {
         #region 构造函数
 
