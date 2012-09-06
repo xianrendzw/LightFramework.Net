@@ -23,16 +23,7 @@ namespace LightFramework.Tracing
         {
             get
             {
-                //设置启用异步写日志
-                if (ConfigurationSection.Instance.IsAsyncWriteLog)
-                {
-                    return (ILogger)AsyncLogger.Instance;
-                }
-                //设置启用同步写日志
-                else
-                {
-                    return (ILogger)SyncLogger.Instance;
-                }
+                return AsyncLogger.Instance;
             }
         }
     }

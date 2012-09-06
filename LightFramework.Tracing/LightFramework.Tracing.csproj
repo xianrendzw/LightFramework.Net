@@ -42,7 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AsyncLogger.cs" />
-    <Compile Include="ConfigurationSection.cs" />
+    <Compile Include="Configuration\LoggingElement.cs" />
+    <Compile Include="Configuration\LoggingElementCollection.cs" />
+    <Compile Include="Configuration\LoggingSection.cs" />
+    <Compile Include="DbDialect.cs" />
     <Compile Include="DBLogAppender.cs" />
     <Compile Include="DbMetaLog.cs" />
     <Compile Include="ILogAppender.cs" />

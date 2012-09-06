@@ -452,7 +452,8 @@ namespace LightFramework.Data.SQLServer
         SqlBulkCopy,
 
         /// <summary>
-        /// 使用SQLServer2008及以上版本表值参数
+        /// 使用SQLServer2008及以上版本表值参数,
+        /// 需要先在数据库创建与目标表结构相同的表。且表名必须为tvps。
         /// </summary>
         TableValue
     }
