@@ -77,11 +77,11 @@ namespace LightFramework.Data.OleDb
             foreach (string key in mapTable.Keys)
             {
                 fields.AppendFormat("[{0}],", key);
-                values.AppendFormat("‘{0}’,", mapTable[key].ToString().Replace("'", "''"));
+                values.AppendFormat("'{0}',", mapTable[key]);
             }
 
             string commandText = string.Format("INSERT INTO [{0}] ({1}) VALUES ({2})",
-                targetTable, fields.ToString().Trim(','), values.ToString().Trim(','));
+                targetTable, fields.ToString().TrimEnd(','), values.ToString().TrimEnd(','));
             return commandText;
         }
 
@@ -144,7 +144,7 @@ namespace LightFramework.Data.OleDb
 
             foreach (string key in mapTable.Keys)
             {
-                setValues.AppendFormat(string.Format("[{0}] = '{1}',", 
+                setValues.AppendFormat(string.Format("[{0}] = '{1}',",
                     key, mapTable[key].ToString().Replace("'", "''")));
             }
 
@@ -183,10 +183,11 @@ namespace LightFramework.Data.OleDb
         /// 向数据库中添加一条记录。
         /// </summary>
         /// <param name="entity">实体对象数据</param>
+        /// <param name="columnNames">目标表列名集合</param>
         /// <returns>返回影响记录的行数,-1表示操作失败,大于-1表示成功</returns>
-        public virtual int Insert(T entity)
+        public virtual int Insert(T entity, params string[] columnNames)
         {
-            SqlExpression sqlExpr = this.GenerateInsertSqlExpression(this.GetDataFieldMapTable(entity), this._tableName);
+            SqlExpression sqlExpr = this.GenerateInsertSqlExpression(this.GetDataFieldMapTable(entity, columnNames), this._tableName);
             return OleDbHelper.ExecuteNonQuery(this._connectionString, CommandType.Text, sqlExpr.CommandText, sqlExpr.Parameters);
         }
 
@@ -194,10 +195,11 @@ namespace LightFramework.Data.OleDb
         /// 向数据库中添加一条记录，并返回插入记录的ID值。
         /// </summary>
         /// <param name="entity">实体对象数据</param>
+        /// <param name="columnNames">目标表列名集合</param>
         /// <returns>插入记录的数据库自增标识</returns>
-        public virtual int InsertWithId(T entity)
+        public virtual int InsertWithId(T entity, params string[] columnNames)
         {
-            SqlExpression sqlExpr = this.GenerateInsertSqlExpression(this.GetDataFieldMapTable(entity), this._tableName);
+            SqlExpression sqlExpr = this.GenerateInsertSqlExpression(this.GetDataFieldMapTable(entity, columnNames), this._tableName);
             int id = 0;
 
             using (OleDbConnection oleDbConnection = new OleDbConnection(this._connectionString))
@@ -213,7 +215,7 @@ namespace LightFramework.Data.OleDb
                 {
                     oleDbCmd.ExecuteNonQuery();
                     oleDbCmd.CommandText = "SELECT @@identity AS ID";
-                    id = Convert.ToInt32(oleDbCmd.ExecuteScalar()); 
+                    id = Convert.ToInt32(oleDbCmd.ExecuteScalar());
                     oleDbCmd.Parameters.Clear();
                     oleDbConnection.Close();
                 }
@@ -287,15 +289,15 @@ namespace LightFramework.Data.OleDb
         /// <returns>返回影响记录的行数,-1表示操作失败,大于-1表示成功</returns>
         public virtual int UpdateWithCondition(T entity, string condition, object[] parameterValues, params string[] columnNames)
         {
-            if (entity == null) 
+            if (entity == null)
                 throw new ArgumentNullException("dto", "未将对象引用到实例");
 
             if (this.ContainWhere(condition))
                 throw new ArgumentException("指定的条件,不要求带SQL语句Where关键字的条件", "condition");
 
-             SqlExpression sqlExpr = this.GenerateUpdateSqlExpression(condition, 
-                 this.GetDataFieldMapTable(entity, columnNames), this._tableName, parameterValues);
-             return OleDbHelper.ExecuteNonQuery(this._connectionString, CommandType.Text, sqlExpr.CommandText, sqlExpr.Parameters);
+            SqlExpression sqlExpr = this.GenerateUpdateSqlExpression(condition,
+                this.GetDataFieldMapTable(entity, columnNames), this._tableName, parameterValues);
+            return OleDbHelper.ExecuteNonQuery(this._connectionString, CommandType.Text, sqlExpr.CommandText, sqlExpr.Parameters);
         }
 
         #endregion

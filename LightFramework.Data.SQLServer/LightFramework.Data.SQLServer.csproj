@@ -44,6 +44,7 @@
     <Compile Include="DataAccess\BaseSelect.cs" />
     <Compile Include="DataAccess\SinglePKDataAccess.cs" />
     <Compile Include="DataAccess\SqlExpression.cs" />
+    <Compile Include="DataAccess\SqlInsertMethod.cs" />
     <Compile Include="DataAccess\ViewDataAccess.cs" />
     <Compile Include="Helper\SQLHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Linq;
-using System.Xml;
-using System.Xml.Serialization;
 using System.Reflection;
 
 namespace LightFramework.Data
@@ -74,11 +70,6 @@ namespace LightFramework.Data
             return properties.Select(x => ((ColumnAttribute)Attribute.GetCustomAttribute(x, typeof(ColumnAttribute))).Name)
                 .ToArray();
         }
-
-        /// <summary>
-        /// 获取与设置当前实体名称(对应数据库中的表名)。
-        /// </summary>
-        public string EntityName { get; set; }
     }
 }
 
