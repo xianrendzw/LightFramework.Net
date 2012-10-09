@@ -12,7 +12,7 @@ namespace LightFramework.Tracing
     {
         private string _logMsg = string.Empty;
         private string _encoding = "utf-8";
-        private LogLevel _level = LogLevel.INFO;
+        private LogLevel _level = LogLevel.Info;
         private string _ipAddress = string.Empty;
         private byte _type;
         protected Storage _storage = Storage.Txt;

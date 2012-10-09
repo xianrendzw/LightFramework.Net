@@ -42,8 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AsyncLogger.cs" />
+    <Compile Include="Configuration\LoggingConfigHelper.cs" />
     <Compile Include="Configuration\LoggingElement.cs" />
-    <Compile Include="Configuration\LoggingElementCollection.cs" />
     <Compile Include="Configuration\LoggingSection.cs" />
     <Compile Include="DbDialect.cs" />
     <Compile Include="DBLogAppender.cs" />

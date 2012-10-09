@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Configuration;
 
-namespace LightFramework.Tracing
+namespace LightFramework.Tracing.Configuration
 {
     public class LoggingElement : ConfigurationElement
     {

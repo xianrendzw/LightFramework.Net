@@ -145,8 +145,7 @@ namespace LightFramework.Data.SQLServer
 
             foreach (string key in mapTable.Keys)
             {
-                setValues.AppendFormat(string.Format("[{0}] = '{1}',",
-                    key, mapTable[key].ToString().Replace("'", "''")));
+                setValues.AppendFormat(string.Format("[{0}] = '{1}',",key, mapTable[key]));
             }
 
             if (parameterValues != null &&

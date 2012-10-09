@@ -29,13 +29,13 @@ namespace LightFramework.Tracing
         public virtual void Append(MetaLog metaLog)
         {
             TxtMetaLog txtlog = metaLog as TxtMetaLog;
-            string filePath = Path.Combine(txtlog.Path, "log", txtlog.LogDateTime.ToString("yyyyMMdd"));
+            string filePath = Path.Combine(txtlog.Path, "log");
 
             //如果目录不存在,则创建目录
             if (!Directory.Exists(filePath)) 
                 Directory.CreateDirectory(filePath);
             //完整格式的文件路径
-            string fullFileName = Path.Combine(filePath, txtlog.LogFileName);
+            string fullFileName = string.Format("{0}\\{1}.log", filePath, txtlog.LogDateTime.ToString("yyyyMMdd"));
 
             //写文件
             StreamWriter sw = new StreamWriter(fullFileName, true, Encoding.GetEncoding(metaLog.Encoding));
@@ -53,7 +53,7 @@ namespace LightFramework.Tracing
         public string Format(MetaLog metaLog)
         {
             string format = "[级别:{0}][时间:{1}],[信息:{2}]\r\n";
-            return string.Format(format, metaLog.Level.Name,metaLog.LogDateTime.ToString(), metaLog.Message);
+            return string.Format(format, metaLog.Level,metaLog.LogDateTime, metaLog.Message);
         }
 
         #endregion
