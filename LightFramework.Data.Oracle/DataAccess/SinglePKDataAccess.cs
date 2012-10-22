@@ -70,7 +70,7 @@ namespace LightFramework.Data.Oracle
         /// <returns>返回影响记录的行数,-1表示操作失败,大于-1表示成功</returns>
         public virtual int Delete(string keyValue)
         {
-            string condition = string.Format("[{0}] = @p0", this._primaryKey);
+            string condition = string.Format("[{0}] = :p0", this._primaryKey);
             object[] parameterValues = new object[] { keyValue };
 
             return this.DeleteWithCondition(condition, parameterValues);
@@ -139,7 +139,7 @@ namespace LightFramework.Data.Oracle
         /// <returns>返回影响记录的行数,-1表示操作失败,大于-1表示成功</returns>
         public virtual int Update(T entity, string id, params string[] columnNames)
         {
-            string condition = string.Format("[{0}] = @p0", this._primaryKey);
+            string condition = string.Format("[{0}] = :p0", this._primaryKey);
             object[] parameterValues = new object[] { id };
 
             return this.UpdateWithCondition(entity, condition, parameterValues, columnNames);
@@ -197,7 +197,7 @@ namespace LightFramework.Data.Oracle
         /// <returns>存在则返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual bool IsExistKey(string keyValue)
         {
-            string condition = string.Format("[{0}] = @p0", this._primaryKey);
+            string condition = string.Format("[{0}] = :p0", this._primaryKey);
             object[] parameterValues = new object[] { keyValue };
 
             return this.IsExistWithCondition(condition, parameterValues);
@@ -244,7 +244,7 @@ namespace LightFramework.Data.Oracle
         /// <returns>返回查询结果数据</returns>
         public virtual T Select(string keyValue, params string[] columnNames)
         {
-            string condition = string.Format("WHERE [{0}] = @p0", this._primaryKey);
+            string condition = string.Format("WHERE [{0}] = :p0", this._primaryKey);
             return this.SelectOne(condition, this.GetParamerterValues(keyValue), columnNames);
         }
 
@@ -253,8 +253,8 @@ namespace LightFramework.Data.Oracle
         /// </summary>
         /// <param name="pageSize">分页大小，即分页显示多少条记录</param>
         /// <param name="pageIndex">当前页码</param>
-        /// <param name="condition">指定的条件,要求带SQL语句Where关键字的条件,如果不带Where关键字则条件无效,如果条件字符串中含有SQL参数标记(@),且必须写成如下格式:(@p0,@p1...)
-        /// <example>e.g.:[UserName]=@p0 AND [Password] = @p1</example></param>
+        /// <param name="condition">指定的条件,要求带SQL语句Where关键字的条件,如果不带Where关键字则条件无效,如果条件字符串中含有SQL参数标记(:),且必须写成如下格式:(:p0,:p1...)
+        /// <example>e.g.:[UserName]=:p0 AND [Password] = :p1</example></param>
         /// <param name="orderByColumnName">排序字段名称，不要求带ORDER BY关键字,只要指定排序字段名称即可</param>
         /// <param name="sortType">SQL语句排序类型</param>
         /// <param name="parameterValues">SQL参数对应值的集合,如果条件字符串中含有参数标记,则必须设置该数组的值</param>
@@ -332,8 +332,8 @@ namespace LightFramework.Data.Oracle
         /// </summary>
         /// <param name="fieldName">表中的字段(列)名称,字段的值必需是整型数据</param>
         /// <param name="fromBase">从(2,8,10,16)进制的整型转换成10进制</param>
-        /// <param name="condition">要求带SQL语句Where关键字的条件,如果条件字符串中含有SQL参数标记(@),且必须写成如下格式:(@p0,@p1...)
-        /// <example>e.g.:[UserName]=@p0 AND [Password] = @p1</example></param>
+        /// <param name="condition">要求带SQL语句Where关键字的条件,如果条件字符串中含有SQL参数标记(:),且必须写成如下格式:(:p0,:p1...)
+        /// <example>e.g.:[UserName]=:p0 AND [Password] = :p1</example></param>
         /// <param name="parameterValues">SQL参数对应值的集合,如果条件字符串中含有参数标记,则必须设置该数组的值</param>
         /// <returns>指定属性的最大值,没有记录的时候为0</returns>
         public virtual int GetMaxValue(string fieldName, int fromBase, string condition, params object[] parameterValues)

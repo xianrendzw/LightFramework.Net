@@ -84,8 +84,8 @@ namespace LightFramework.Data.Oracle
         /// <summary>
         /// 查询数据库,判断指定条件的记录是否存在。
         /// </summary>
-        /// <param name="condition">指定的条件,不需要带SQL语句的Where关键字,如果条件字符串中含有SQL参数标记(@),且必须写成如下格式:(@p0,@p1...)
-        /// <example>e.g.:[UserName]=@p0 AND [Password] = @p1</example></param>
+        /// <param name="condition">指定的条件,不需要带SQL语句的Where关键字,如果条件字符串中含有SQL参数标记(:),且必须写成如下格式:(:p0,:p1...)
+        /// <example>e.g.:[UserName]=:p0 AND [Password] = :p1</example></param>
         /// <param name="parameterValues">SQL参数对应值的集合,如果条件字符串中含有参数标记,则必须设置该数组的值</param>
         /// <returns>存在则返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual bool IsExistWithCondition(string condition, params object[] parameterValues)
@@ -125,8 +125,8 @@ namespace LightFramework.Data.Oracle
         /// <summary>
         /// 从数据库中获取满足指定条件的实体对象集合(返回值不需判断是否为null)。
         /// </summary>
-        /// <param name="condition">指定的条件,要求带SQL语句Where关键字的条件,如果条件字符串中含有SQL参数标记(@),且必须写成如下格式:(@p0,@p1...)
-        /// <example>e.g.:[UserName]=@p0 AND [Password] = @p1</example></param>
+        /// <param name="condition">指定的条件,要求带SQL语句Where关键字的条件,如果条件字符串中含有SQL参数标记(:),且必须写成如下格式:(:p0,:p1...)
+        /// <example>e.g.:[UserName]=:p0 AND [Password] = :p1</example></param>
         /// <param name="columnNames">该实体对象中对应的数据库表的列名</param>
         /// <returns>指定条件的表中的实体对象集合</returns>
         public virtual List<T> SelectWithCondition(string condition, params string[] columnNames)
@@ -149,8 +149,8 @@ namespace LightFramework.Data.Oracle
         /// <summary>
         /// 从数据库中获取满足指定条件的实体对象集合(返回值不需判断是否为null)。
         /// </summary>
-        /// <param name="condition">指定的条件,要求带SQL语句Where关键字的条件,如果条件字符串中含有SQL参数标记(@),且必须写成如下格式:(@p0,@p1...)
-        /// <example>e.g.:[UserName]=@p0 AND [Password] = @p1</example></param>
+        /// <param name="condition">指定的条件,要求带SQL语句Where关键字的条件,如果条件字符串中含有SQL参数标记(:),且必须写成如下格式:(:p0,:p1...)
+        /// <example>e.g.:[UserName]=:p0 AND [Password] = :p1</example></param>
         /// <param name="parameterValues">SQL参数对应值的集合,如果条件字符串中含有参数标记,则必须设置该数组的值</param>
         /// <param name="columnNames">该实体对象中对应的数据库表的列名</param>
         /// <returns>实体对象集合</returns>
@@ -162,10 +162,10 @@ namespace LightFramework.Data.Oracle
         /// <summary>
         /// 从数据库中获取满足指定条件的实体对象集合(返回值不需判断是否为null)。
         /// </summary>
-        /// <param name="condition">指定的条件,要求带SQL语句Where关键字的条件,如果条件字符串中含有SQL参数标记(@),且必须写成如下格式:(@p0,@p1...)
+        /// <param name="condition">指定的条件,要求带SQL语句Where关键字的条件,如果条件字符串中含有SQL参数标记(:),且必须写成如下格式:(:p0,:p1...)
         /// <param name="orderByColumnName">排序字段名称，不要求带ORDER BY关键字,只要指定排序字段名称即可</param>
         /// <param name="sortType">SQL语句排序类型</param>
-        /// <example>e.g.:[UserName]=@p0 AND [Password] = @p1</example></param>
+        /// <example>e.g.:[UserName]=:p0 AND [Password] = :p1</example></param>
         /// <param name="parameterValues">SQL参数对应值的集合,如果条件字符串中含有参数标记,则必须设置该数组的值</param>
         /// <param name="columnNames">该实体对象中对应的数据库表的列名</param>
         /// <returns>实体对象集合</returns>
@@ -190,8 +190,8 @@ namespace LightFramework.Data.Oracle
         /// 从数据库中获取满足指定条件的前N项实体对象集合(返回值不需判断是否为null)。
         /// </summary>
         /// <param name="topN">表中的前N条记录</param>
-        /// <param name="condition">指定的条件,要求带SQL语句Where关键字的条件,如果条件字符串中含有SQL参数标记(@),且必须写成如下格式:(@p0,@p1...)
-        /// <example>e.g.:[UserName]=@p0 AND [Password] = @p1</example></param>
+        /// <param name="condition">指定的条件,要求带SQL语句Where关键字的条件,如果条件字符串中含有SQL参数标记(:),且必须写成如下格式:(:p0,:p1...)
+        /// <example>e.g.:[UserName]=:p0 AND [Password] = :p1</example></param>
         /// <param name="parameterValues">SQL参数对应值的集合,如果条件字符串中含有参数标记,则必须设置该数组的值</param>
         /// <param name="columnNames">该实体对象中对应的数据库表的列名</param>
         /// <returns>实体对象集合</returns>
@@ -204,10 +204,10 @@ namespace LightFramework.Data.Oracle
         /// 从数据库中获取满足指定条件的前N项实体对象集合(返回值不需判断是否为null)。
         /// </summary>
         /// <param name="topN">表中的前N条记录</param>
-        /// <param name="condition">指定的条件,要求带SQL语句Where关键字的条件,如果条件字符串中含有SQL参数标记(@),且必须写成如下格式:(@p0,@p1...)
+        /// <param name="condition">指定的条件,要求带SQL语句Where关键字的条件,如果条件字符串中含有SQL参数标记(:),且必须写成如下格式:(:p0,:p1...)
         /// <param name="orderByColumnName">排序字段名称，不要求带ORDER BY关键字,只要指定排序字段名称即可</param>
         /// <param name="sortType">SQL语句排序类型</param>
-        /// <example>e.g.:[UserName]=@p0 AND [Password] = @p1</example></param>
+        /// <example>e.g.:[UserName]=:p0 AND [Password] = :p1</example></param>
         /// <param name="parameterValues">SQL参数对应值的集合,如果条件字符串中含有参数标记,则必须设置该数组的值</param>
         /// <param name="columnNames">该实体对象中对应的数据库表的列名</param>
         /// <returns>实体对象集合</returns>
@@ -238,8 +238,8 @@ namespace LightFramework.Data.Oracle
         /// <summary>
         /// 从数据库中获取一条满足指定条件的实体对象集合(返回值需要判断是否为null)。
         /// </summary>
-        /// <param name="condition">指定的条件,要求带SQL语句Where关键字的条件,如果条件字符串中含有SQL参数标记(@),且必须写成如下格式:(@p0,@p1...)
-        /// <example>e.g.:[UserName]=@p0 AND [Password] = @p1</example></param>
+        /// <param name="condition">指定的条件,要求带SQL语句Where关键字的条件,如果条件字符串中含有SQL参数标记(:),且必须写成如下格式:(:p0,:p1...)
+        /// <example>e.g.:[UserName]=:p0 AND [Password] = :p1</example></param>
         /// <param name="parameterValues">SQL参数对应值的集合,如果条件字符串中含有参数标记,则必须设置该数组的值</param>
         /// <param name="columnNames">该实体对象中对应的数据库表的列名</param>
         /// <returns>实体对象或null</returns>
@@ -255,8 +255,8 @@ namespace LightFramework.Data.Oracle
         /// </summary>
         /// <param name="pageSize">分页大小，即分页显示多少条记录</param>
         /// <param name="pageIndex">当前页码</param>
-        /// <param name="condition">指定的条件,要求带SQL语句Where关键字的条件,如果不带Where关键字则条件无效,如果条件字符串中含有SQL参数标记(@),且必须写成如下格式:(@p0,@p1...)
-        /// <example>e.g.:[UserName]=@p0 AND [Password] = @p1</example></param>
+        /// <param name="condition">指定的条件,要求带SQL语句Where关键字的条件,如果不带Where关键字则条件无效,如果条件字符串中含有SQL参数标记(:),且必须写成如下格式:(:p0,:p1...)
+        /// <example>e.g.:[UserName]=:p0 AND [Password] = :p1</example></param>
         /// <param name="notinColumnName">指定的筛选列名称,该参数为必须指定，且为当前表中合法的列名称。如果未指定列名称，该方法将返回null</param>
         /// <param name="orderByColumnName">排序字段名称，不要求带ORDER BY关键字,只要指定排序字段名称即可</param>
         /// <param name="sortType">SQL语句排序类型</param>
@@ -309,8 +309,8 @@ namespace LightFramework.Data.Oracle
         /// </summary>
         /// <param name="pageSize">分页大小，即分页显示多少条记录</param>
         /// <param name="pageIndex">当前页码</param>
-        /// <param name="condition">指定的条件,要求带SQL语句Where关键字的条件,如果不带Where关键字则条件无效,如果条件字符串中含有SQL参数标记(@),且必须写成如下格式:(@p0,@p1...)
-        /// <example>e.g.:[UserName]=@p0 AND [Password] = @p1</example></param>
+        /// <param name="condition">指定的条件,要求带SQL语句Where关键字的条件,如果不带Where关键字则条件无效,如果条件字符串中含有SQL参数标记(:),且必须写成如下格式:(:p0,:p1...)
+        /// <example>e.g.:[UserName]=:p0 AND [Password] = :p1</example></param>
         /// <param name="orderByColumnName">排序字段名称，不要求带ORDER BY关键字,只要指定排序字段名称即可</param>
         /// <param name="sortType">SQL语句排序类型</param>
         /// <param name="parameterValues">SQL参数对应值的集合,如果条件字符串中含有参数标记,则必须设置该数组的值</param>
@@ -366,15 +366,15 @@ namespace LightFramework.Data.Oracle
 
             OracleParameter[] parameters = {
                                               
-                                            new OracleParameter("@tblName",OracleDbType.Varchar2, 255),
-                                            new OracleParameter("@fldName", OracleDbType.Varchar2, 255),
-                                            new OracleParameter("@OrderfldName", OracleDbType.Varchar2, 255),
-                                            new OracleParameter("@StatfldName", OracleDbType.Varchar2, 255),
-                                            new OracleParameter("@PageSize", OracleDbType.Int32),
-                                            new OracleParameter("@PageIndex", OracleDbType.Int32),
-                                            new OracleParameter("@IsReCount", OracleDbType.Int32),
-                                            new OracleParameter("@OrderType", OracleDbType.Int32),
-                                            new OracleParameter("@strWhere", OracleDbType.Varchar2,1000)
+                                            new OracleParameter(":tblName",OracleDbType.Varchar2, 255),
+                                            new OracleParameter(":fldName", OracleDbType.Varchar2, 255),
+                                            new OracleParameter(":OrderfldName", OracleDbType.Varchar2, 255),
+                                            new OracleParameter(":StatfldName", OracleDbType.Varchar2, 255),
+                                            new OracleParameter(":PageSize", OracleDbType.Int32),
+                                            new OracleParameter(":PageIndex", OracleDbType.Int32),
+                                            new OracleParameter(":IsReCount", OracleDbType.Int32),
+                                            new OracleParameter(":OrderType", OracleDbType.Int32),
+                                            new OracleParameter(":strWhere", OracleDbType.Varchar2,1000)
                                         };
             parameters[0].Value = this._tableName;
             parameters[1].Value = "*";
@@ -393,57 +393,57 @@ namespace LightFramework.Data.Oracle
 
             //存储过程代码
             //CREATE PROCEDURE [dbo].[sp_SelectWithPageSize]
-            //    @tblName      varchar(255),       -- 表名
-            //    @fldName      varchar(255),       -- 字段名
-            //    @PageSize     int = 10,           -- 页尺寸
-            //    @PageIndex    int = 1,            -- 页码
-            //    @IsReCount    bit = 0,            -- 返回记录总数, 非 0 值则返回
-            //    @OrderType    bit = 0,            -- 设置排序类型, 非 0 值则降序
-            //    @strWhere     varchar(1000) = ''  -- 查询条件 (注意: 不要加 where)
+            //    :tblName      varchar(255),       -- 表名
+            //    :fldName      varchar(255),       -- 字段名
+            //    :PageSize     int = 10,           -- 页尺寸
+            //    :PageIndex    int = 1,            -- 页码
+            //    :IsReCount    bit = 0,            -- 返回记录总数, 非 0 值则返回
+            //    :OrderType    bit = 0,            -- 设置排序类型, 非 0 值则降序
+            //    :strWhere     varchar(1000) = ''  -- 查询条件 (注意: 不要加 where)
             //AS
 
-            //declare @strSQL   varchar(6000)       -- 主语句
-            //declare @strTmp   varchar(100)        -- 临时变量
-            //declare @strOrder varchar(400)        -- 排序类型
+            //declare :strSQL   varchar(6000)       -- 主语句
+            //declare :strTmp   varchar(100)        -- 临时变量
+            //declare :strOrder varchar(400)        -- 排序类型
 
-            //if @OrderType != 0
+            //if :OrderType != 0
             //begin
-            //    set @strTmp = '<(select min'
-            //    set @strOrder = ' order by [' + @fldName +'] desc'
+            //    set :strTmp = '<(select min'
+            //    set :strOrder = ' order by [' + :fldName +'] desc'
             //end
             //else
             //begin
-            //    set @strTmp = '>(select max'
-            //    set @strOrder = ' order by [' + @fldName +'] asc'
+            //    set :strTmp = '>(select max'
+            //    set :strOrder = ' order by [' + :fldName +'] asc'
             //end
 
-            //set @strSQL = 'select top ' + str(@PageSize) + ' * from ['
-            //    + @tblName + '] where [' + @fldName + ']' + @strTmp + '(['
-            //    + @fldName + ']) from (select top ' + str((@PageIndex-1)*@PageSize) + ' ['
-            //    + @fldName + '] from [' + @tblName + ']' + @strOrder + ') as tblTmp)'
-            //    + @strOrder
+            //set :strSQL = 'select top ' + str(:PageSize) + ' * from ['
+            //    + :tblName + '] where [' + :fldName + ']' + :strTmp + '(['
+            //    + :fldName + ']) from (select top ' + str((:PageIndex-1)*:PageSize) + ' ['
+            //    + :fldName + '] from [' + :tblName + ']' + :strOrder + ') as tblTmp)'
+            //    + :strOrder
 
-            //if @strWhere != ''
-            //    set @strSQL = 'select top ' + str(@PageSize) + ' * from ['
-            //        + @tblName + '] where [' + @fldName + ']' + @strTmp + '(['
-            //        + @fldName + ']) from (select top ' + str((@PageIndex-1)*@PageSize) + ' ['
-            //        + @fldName + '] from [' + @tblName + '] where ' + @strWhere + ' '
-            //        + @strOrder + ') as tblTmp) and ' + @strWhere + ' ' + @strOrder
+            //if :strWhere != ''
+            //    set :strSQL = 'select top ' + str(:PageSize) + ' * from ['
+            //        + :tblName + '] where [' + :fldName + ']' + :strTmp + '(['
+            //        + :fldName + ']) from (select top ' + str((:PageIndex-1)*:PageSize) + ' ['
+            //        + :fldName + '] from [' + :tblName + '] where ' + :strWhere + ' '
+            //        + :strOrder + ') as tblTmp) and ' + :strWhere + ' ' + :strOrder
 
-            //if @PageIndex = 1
+            //if :PageIndex = 1
             //begin
-            //    set @strTmp =''
-            //    if @strWhere != ''
-            //        set @strTmp = ' where ' + @strWhere
+            //    set :strTmp =''
+            //    if :strWhere != ''
+            //        set :strTmp = ' where ' + :strWhere
 
-            //    set @strSQL = 'select top ' + str(@PageSize) + ' * from ['
-            //        + @tblName + ']' + @strTmp + ' ' + @strOrder
+            //    set :strSQL = 'select top ' + str(:PageSize) + ' * from ['
+            //        + :tblName + ']' + :strTmp + ' ' + :strOrder
             //end
 
-            //if @IsReCount != 0
-            //    set @strSQL = 'select count(*) as Total from [' + @tblName + ']'+' where ' + @strWhere
+            //if :IsReCount != 0
+            //    set :strSQL = 'select count(*) as Total from [' + :tblName + ']'+' where ' + :strWhere
 
-            //exec (@strSQL)
+            //exec (:strSQL)
         }
 
         /// <summary>
@@ -458,8 +458,8 @@ namespace LightFramework.Data.Oracle
         /// <summary>
         /// 获取数据库表中指定条件的记录总数。
         /// </summary>
-        /// <param name="condition">要求带SQL语句Where关键字的条件，如果不带Where关键字该方法将对表中所有记录执行操作,如果条件字符串中含有SQL参数标记(@),且必须写成如下格式:(@p0,@p1...)
-        /// <example>e.g.:[UserName]=@p0 AND [Password] = @p1</example></param>
+        /// <param name="condition">要求带SQL语句Where关键字的条件，如果不带Where关键字该方法将对表中所有记录执行操作,如果条件字符串中含有SQL参数标记(:),且必须写成如下格式:(:p0,:p1...)
+        /// <example>e.g.:[UserName]=:p0 AND [Password] = :p1</example></param>
         /// <param name="parameterValues">SQL参数对应值的集合,如果条件字符串中含有参数标记,则必须设置该数组的值</param>
         /// <returns>指定条件的记录总数</returns>
         public virtual int Count(string condition, params object[] parameterValues)
@@ -626,7 +626,7 @@ namespace LightFramework.Data.Oracle
             for (int i = 0; i < parameterValues.Length; i++)
             {
                 parameters[i] = new OracleParameter();
-                parameters[i].ParameterName = "@p" + i;
+                parameters[i].ParameterName = ":p" + i;
                 parameters[i].Value = parameterValues[i] != null ? parameterValues[i] : DBNull.Value;
             }
 

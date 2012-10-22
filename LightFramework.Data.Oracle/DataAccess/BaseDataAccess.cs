@@ -49,8 +49,8 @@ namespace LightFramework.Data.Oracle
             foreach (string key in mapTable.Keys)
             {
                 fields.AppendFormat("[{0}],", key);
-                values.AppendFormat("@{0},", key);
-                sqlParameters.Add(new OracleParameter("@" + key, mapTable[key]));
+                values.AppendFormat(":{0},", key);
+                sqlParameters.Add(new OracleParameter(":" + key, mapTable[key]));
             }
 
             string commandText = string.Format("INSERT INTO [{0}] ({1}) VALUES ({2})",
@@ -105,8 +105,8 @@ namespace LightFramework.Data.Oracle
             List<OracleParameter> sqlParameters = new List<OracleParameter>(mapTable.Count);
             foreach (string key in mapTable.Keys)
             {
-                setValues.AppendFormat(string.Format("[{0}] = @{0},", key));
-                sqlParameters.Add(new OracleParameter("@" + key, mapTable[key]));
+                setValues.AppendFormat(string.Format("[{0}] = :{0},", key));
+                sqlParameters.Add(new OracleParameter(":" + key, mapTable[key]));
             }
 
             if (parameterValues != null &&
@@ -211,8 +211,8 @@ namespace LightFramework.Data.Oracle
         /// <summary>
         /// 根据指定条件,从数据库中删除指定对象。
         /// </summary>
-        /// <param name="condition">删除记录的条件语句,不需要带SQL语句的Where关键字,如果条件字符串中含有SQL参数标记(@),且必须写成如下格式:(@p0,@p1...)
-        /// <example>e.g.:[UserName]=@p0 AND [Password] = @p1</example></param>
+        /// <param name="condition">删除记录的条件语句,不需要带SQL语句的Where关键字,如果条件字符串中含有SQL参数标记(:),且必须写成如下格式:(:p0,:p1...)
+        /// <example>e.g.:[UserName]=:p0 AND [Password] = :p1</example></param>
         /// <param name="parameterValues">SQL参数对应值的集合,如果条件字符串中含有参数标记,则必须设置该数组的值</param>
         /// <returns>返回影响记录的行数,-1表示操作失败,大于-1表示成功</returns>
         public virtual int DeleteWithCondition(string condition, params object[] parameterValues)
@@ -256,8 +256,8 @@ namespace LightFramework.Data.Oracle
         /// 更新数据库表中的记录。
         /// </summary>
         /// <param name="entity">实体对象集合</param>
-        /// <param name="condition">不带Where的更新条件,如果条件字符串中含有SQL参数标记(@),且必须写成如下格式:(@p0,@p1...)
-        /// <example>e.g.:[UserName]=@p0 AND [Password] = @p1</example></param>
+        /// <param name="condition">不带Where的更新条件,如果条件字符串中含有SQL参数标记(:),且必须写成如下格式:(:p0,:p1...)
+        /// <example>e.g.:[UserName]=:p0 AND [Password] = :p1</example></param>
         /// <param name="parameterValues">SQL参数对应值的集合,如果条件字符串中含有参数标记,则必须设置该数组的值</param>
         /// <param name="columnNames">该实体对象中对应的数据库表的列名</param>
         /// <returns>返回影响记录的行数,-1表示操作失败,大于-1表示成功</returns>
