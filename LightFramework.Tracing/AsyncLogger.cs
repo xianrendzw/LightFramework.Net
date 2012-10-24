@@ -27,6 +27,11 @@ namespace LightFramework.Tracing
         private static Queue<MetaLog> _logQueue = null;
 
         /// <summary>
+        /// 默认日志级别
+        /// </summary>
+        private static LogLevel defaultLevel = LogLevel.Info;
+
+        /// <summary>
         /// 私有构造函数。
         /// </summary>
         private AsyncLogger()
@@ -42,7 +47,7 @@ namespace LightFramework.Tracing
             //开启一个线程，专门用于写应用程序日志操作。
             _logQueue = new Queue<MetaLog>(100);
             _writeLogThread = new Thread(new ThreadStart(AsyncWriteLog));
-            _writeLogThread.Name = "writelogThread";
+            _writeLogThread.Name = "loggingThread";
             _writeLogThread.IsBackground = true;
             _writeLogThread.Start();
         }
@@ -122,6 +127,7 @@ namespace LightFramework.Tracing
         /// <param name="metaLog">日志数据封送对象</param>
         public void Write(MetaLog metaLog)
         {
+            if (defaultLevel < metaLog.Level) return;
             PushMetaLog(metaLog); 
         }
 

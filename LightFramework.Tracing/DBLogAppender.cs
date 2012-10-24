@@ -46,7 +46,7 @@ namespace LightFramework.Tracing
             }
             catch (Exception ex)
             {
-                System.Diagnostics.EventLog.WriteEntry("DuoMi.Boss.Logging.DBLogAppender", ex.ToString());
+                System.Diagnostics.EventLog.WriteEntry("LightFramework.Tracing.DBLogAppender", ex.ToString());
             }
         }
 
@@ -78,7 +78,7 @@ namespace LightFramework.Tracing
 
         private void AttachParameters(IDbCommand command, DbParameter[] dbParameters)
         {
-            if (command == null)
+            if (command == null) 
                 throw new ArgumentNullException("command");
             if (dbParameters == null) return;
 
@@ -97,7 +97,7 @@ namespace LightFramework.Tracing
         private DbConnection CreateConnection(DbDialect dbDialect, string connstr)
         {
             string typeName = string.Empty;
-            if (dbDialect == DbDialect.MySql)
+            if (dbDialect == DbDialect.MySql) 
                 typeName = "MySql.Data.MySqlClient.MySqlConnection,MySql.Data";
             else if (dbDialect == DbDialect.SqlServer)
                 typeName = "System.Data.SqlClient.SqlConnection,System.Data";

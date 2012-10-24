@@ -13,7 +13,7 @@ namespace LightFramework.Tracing
     {
         private string _destTable;
         private string _connectionString = string.Empty;
-        private Dictionary<string, object> _fieldvalues;
+        private Dictionary<string, object> _fieldvalues ;
         private DbDialect _dbDialect = DbDialect.MySql;
 
         /// <summary>

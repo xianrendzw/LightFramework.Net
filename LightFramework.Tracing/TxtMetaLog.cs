@@ -11,7 +11,7 @@ namespace LightFramework.Tracing
     public class TxtMetaLog : MetaLog
     {
         private string _path = AppDomain.CurrentDomain.BaseDirectory;
-        private string _logFileName = "log.txt";
+        private string _logFileName = "log.log";
 
         /// <summary>
         /// 构造函数。

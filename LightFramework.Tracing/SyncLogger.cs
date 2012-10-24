@@ -15,6 +15,8 @@ namespace LightFramework.Tracing
         /// </summary>
         public readonly static SyncLogger Instance = new SyncLogger();
 
+        private LogLevel defaultLevel = LogLevel.Info;
+
         /// <summary>
         /// 私有构造函数。
         /// </summary>
@@ -30,8 +32,9 @@ namespace LightFramework.Tracing
         /// <param name="metaLog">日志数据封送对象</param>
         public void Write(MetaLog metaLog)
         {
-            ILogAppender logAppender = null;
+            if (defaultLevel < metaLog.Level) return;
 
+            ILogAppender logAppender = null;
             if (metaLog.Storage == Storage.Txt)
             {
                 logAppender = TextLogAppender.Instance;
