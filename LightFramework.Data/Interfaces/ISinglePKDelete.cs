@@ -6,7 +6,7 @@ namespace LightFramework.Data
     /// ISinglePKDelete提供对数据库中单主键表一些基本删除操作的接口。
     /// </summary>
     /// <typeparam name="T">通用类型</typeparam>
-    public interface ISinglePKDelete<T>
+    public interface ISinglePKDelete<T> : IBaseDelete<T>
     {
         /// <summary>
         /// 根据指定对象的ID,从数据库中删除指定对象(用于整型主键)。

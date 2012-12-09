@@ -269,32 +269,9 @@ namespace LightFramework.Data.MySQL
         /// 获取数据库中该对象的最大ID值
         /// </summary>
         /// <returns>最大ID值</returns>
-        public virtual int GetMaxID()
+        public virtual int SelectMaxId()
         {
-            return this.GetMaxValue(this._primaryKey, 10, string.Empty);
-        }
-
-        /// <summary>
-        /// 获取数据库中该对象指定属性的最大值(没有记录的时候返回0)。
-        /// </summary>
-        /// <param name="fieldName">表中的字段(列)名称,字段的值必需是整型数据</param>
-        /// <param name="fromBase">从(2,8,10,16)进制的整型转换成10进制</param>
-        /// <param name="condition">要求带SQL语句Where关键字的条件,如果条件字符串中含有SQL参数标记(@),且必须写成如下格式:(@p0,@p1...)
-        /// <example>e.g.:[UserName]=@p0 AND [Password] = @p1</example></param>
-        /// <param name="parameterValues">SQL参数对应值的集合,如果条件字符串中含有参数标记,则必须设置该数组的值</param>
-        /// <returns>指定属性的最大值,没有记录的时候为0</returns>
-        public virtual int GetMaxValue(string fieldName, int fromBase, string condition, params object[] parameterValues)
-        {
-            if (!this.ContainWhere(condition))
-                throw new ArgumentException("指定的条件,要求带SQL语句Where关键字的条件", "condition");
-
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("SELECT MAX({0}) AS MaxValue FROM {1} {2}");
-
-            string sqlCmd = string.Format(strSql.ToString(), fieldName, this._tableName, condition);
-            MySqlParameter[] parameters = this.FillParameters(parameterValues);
-            object obj = MySqlHelper.ExecuteScalar(this._connectionString, sqlCmd, parameters);
-            return Convert.IsDBNull(obj) ? 0 : Convert.ToInt32(obj.ToString(), fromBase);
+            return this.SelectMaxWithCondition(this._primaryKey, 10, string.Empty);
         }
 
         #endregion

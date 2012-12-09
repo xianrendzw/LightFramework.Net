@@ -6,7 +6,7 @@ namespace LightFramework.Data
     /// ISinglePKUpdate提供对数据库中单主键表一些基本修改操作的接口。
     /// </summary>
     /// <typeparam name="T">通用类型</typeparam>
-    public interface ISinglePKUpdate<T>
+    public interface ISinglePKUpdate<T> : IBaseUpdate<T>
     {
         /// <summary>
         /// 更新数据库表中指定主键值的记录。

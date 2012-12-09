@@ -6,7 +6,7 @@ namespace LightFramework.Data
     /// ISinglePKSelect提供对数据库中单主键表一些基本查询操作的接口。
     /// </summary>
     /// <typeparam name="T">通用类型</typeparam>
-    public interface ISinglePKSelect<T>
+    public interface ISinglePKSelect<T> : IBaseSelect<T>
     {
         /// <summary>
         /// 查询数据库,判断指定标识的记录是否存在。
@@ -77,7 +77,7 @@ namespace LightFramework.Data
         /// 获取数据库中表的最大ID值(没有记录的时候返回0)。
         /// </summary>
         /// <returns>最大ID值</returns>
-        int GetMaxID();
+        int SelectMaxId();
 
         /// <summary>
         /// 获取数据库中该对象指定属性的最大值(没有记录的时候返回0)。
@@ -88,6 +88,7 @@ namespace LightFramework.Data
         /// <example>e.g.:[UserName]=@p0 AND [Password] = @p1</example></param>
         /// <param name="parameterValues">SQL参数对应值的集合,如果条件字符串中含有参数标记,则必须设置该数组的值</param>
         /// <returns>指定属性的最大值</returns>
-        int GetMaxValue(string fieldName, int fromBase, string condition, params object[] parameterValues);
+        int SelectMaxWithCondition(string fieldName, int fromBase, string condition, params object[] parameterValues);
+        
     }
 }
