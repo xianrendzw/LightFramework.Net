@@ -43,7 +43,7 @@ namespace LightFramework.Data
         /// <returns>排除后该对象常量值的集合</returns>
         public string[] Except(params string[] columnNames)
         {
-            FieldInfo[] fields = this.GetType().GetFields(BindingFlags.Static);
+            FieldInfo[] fields = this.GetType().GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.GetField);
 
             if (fields == null ||
                 fields.Length == 0) return null;
@@ -52,12 +52,13 @@ namespace LightFramework.Data
             if (columnNames == null ||
                 columnNames.Length == 0)
             {
-                return fields.Select(field => field.GetValue(this).ToString()).ToArray();
+                return fields.Where(x => x.IsInitOnly).Select(field => field.GetValue(this).ToString()).ToArray();
             }
 
             var lowerConsts = columnNames.Select(c => c.ToLower());
-            var exclueFields = fields.Where(field => lowerConsts.Contains(field.GetValue(this).ToString().ToLower()));
-            return exclueFields.Select(field => field.GetValue(this).ToString()).ToArray();
+            var restFields = fields.Where(x => x.IsInitOnly)
+                .Where(field => !lowerConsts.Contains(field.GetValue(this).ToString().ToLower()));
+            return restFields.Select(field => field.GetValue(this).ToString()).ToArray();
         }
 
         /// <summary>
