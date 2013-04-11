@@ -48,12 +48,12 @@ namespace LightFramework.Data.Oracle
             List<OracleParameter> sqlParameters = new List<OracleParameter>(mapTable.Count);
             foreach (string key in mapTable.Keys)
             {
-                fields.AppendFormat("[{0}],", key);
+                fields.AppendFormat("{0},", key);
                 values.AppendFormat(":{0},", key);
                 sqlParameters.Add(new OracleParameter(":" + key, mapTable[key]));
             }
 
-            string commandText = string.Format("INSERT INTO [{0}] ({1}) VALUES ({2})",
+            string commandText = string.Format("INSERT INTO {0} ({1}) VALUES ({2})",
                 targetTable, fields.ToString().TrimEnd(','), values.ToString().TrimEnd(','));
             return new SqlExpression(commandText, sqlParameters.ToArray());
         }
@@ -76,11 +76,11 @@ namespace LightFramework.Data.Oracle
             StringBuilder values = new StringBuilder();
             foreach (string key in mapTable.Keys)
             {
-                fields.AppendFormat("[{0}],", key);
+                fields.AppendFormat("{0},", key);
                 values.AppendFormat("'{0}',", mapTable[key]);
             }
 
-            string commandText = string.Format("INSERT INTO [{0}] ({1}) VALUES ({2})",
+            string commandText = string.Format("INSERT INTO {0} ({1}) VALUES ({2})",
                 targetTable, fields.ToString().TrimEnd(','), values.ToString().TrimEnd(','));
             return commandText;
         }
@@ -105,7 +105,7 @@ namespace LightFramework.Data.Oracle
             List<OracleParameter> sqlParameters = new List<OracleParameter>(mapTable.Count);
             foreach (string key in mapTable.Keys)
             {
-                setValues.AppendFormat(string.Format("[{0}] = :{0},", key));
+                setValues.AppendFormat(string.Format("{0} = :{0},", key));
                 sqlParameters.Add(new OracleParameter(":" + key, mapTable[key]));
             }
 
@@ -118,7 +118,7 @@ namespace LightFramework.Data.Oracle
                 }
             }
 
-            string commandText = string.Format("UPDATE [{0}] SET {1} WHERE {2} ", targetTable,
+            string commandText = string.Format("UPDATE {0} SET {1} WHERE {2} ", targetTable,
                 setValues.ToString().TrimEnd(','), condition);
             return new SqlExpression(commandText, sqlParameters.ToArray());
         }
@@ -144,7 +144,7 @@ namespace LightFramework.Data.Oracle
 
             foreach (string key in mapTable.Keys)
             {
-                setValues.AppendFormat(string.Format("[{0}] = '{1}',",key, mapTable[key]));
+                setValues.AppendFormat(string.Format("{0} = '{1}',",key, mapTable[key]));
             }
 
             if (parameterValues != null &&
@@ -157,7 +157,7 @@ namespace LightFramework.Data.Oracle
                 }
             }
 
-            string sqlCmd = string.Format("UPDATE [{0}] SET {1} WHERE {2} ", targetTable,
+            string sqlCmd = string.Format("UPDATE {0} SET {1} WHERE {2} ", targetTable,
                 setValues.ToString().TrimEnd(','), condition);
             return sqlCmd;
         }
@@ -223,7 +223,7 @@ namespace LightFramework.Data.Oracle
                 return -1;
 
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("DELETE FROM [{0}] WHERE {1}");
+            strSql.Append("DELETE FROM {0} WHERE {1}");
             string sqlCmd = string.Format(strSql.ToString(), this._tableName, condition);
             OracleParameter[] parameters = this.FillParameters(parameterValues);
             return OracleHelper.ExecuteNonQuery(this._connectionString, CommandType.Text, sqlCmd, parameters);
@@ -234,7 +234,7 @@ namespace LightFramework.Data.Oracle
         /// </summary>
         public virtual int DeleteAll()
         {
-            string sqlCmd = string.Format("DELETE FROM [{0}]", this._tableName);
+            string sqlCmd = string.Format("DELETE FROM {0}", this._tableName);
             return OracleHelper.ExecuteNonQuery(this._connectionString, CommandType.Text, sqlCmd);
         }
 
@@ -243,7 +243,7 @@ namespace LightFramework.Data.Oracle
         /// </summary>
         public virtual void Truncate()
         {
-            string sqlCmd = string.Format("TRUNCATE TABLE [{0}]", this._tableName);
+            string sqlCmd = string.Format("TRUNCATE TABLE {0}", this._tableName);
             OracleHelper.ExecuteNonQuery(this._connectionString, CommandType.Text, sqlCmd);
         }
 

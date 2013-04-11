@@ -94,7 +94,7 @@ namespace LightFramework.Data.Oracle
                 throw new ArgumentException("指定的条件,不要求带SQL语句Where关键字的条件", "condition");
 
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("SELECT COUNT(0) FROM [{0}] ");
+            strSql.Append("SELECT COUNT(0) FROM {0} ");
             strSql.Append("WHERE {1} ");
             string sqlCmd = string.Format(strSql.ToString(), this._tableName, condition);
             OracleParameter[] parameters = this.FillParameters(parameterValues);
@@ -176,11 +176,11 @@ namespace LightFramework.Data.Oracle
 
             //获取筛选列
             string columns = this.GetColumns(columnNames);
-            string sqlCmd = string.Format("SELECT {0} FROM [{1}] {2} ", columns, this._tableName, condition);
+            string sqlCmd = string.Format("SELECT {0} FROM {1} {2} ", columns, this._tableName, condition);
 
             if (!string.IsNullOrEmpty(orderByColumnName))
             {
-                sqlCmd = string.Format("{0} ORDER BY [{1}] {2}", sqlCmd, orderByColumnName, sortType.ToString());
+                sqlCmd = string.Format("{0} ORDER BY {1} {2}", sqlCmd, orderByColumnName, sortType.ToString());
             }
 
             return this.GetEntities(sqlCmd, parameterValues, columnNames);
@@ -225,11 +225,11 @@ namespace LightFramework.Data.Oracle
             //获取筛选列
             string columns = this.GetColumns(columnNames);
             columns = string.Format("TOP {0} {1}", topN, columns);
-            string sqlCmd = string.Format("SELECT {0} FROM [{1}] {2} ", columns, this._tableName, condition);
+            string sqlCmd = string.Format("SELECT {0} FROM {1} {2} ", columns, this._tableName, condition);
 
             if (!string.IsNullOrEmpty(orderByColumnName))
             {
-                sqlCmd = string.Format("{0} ORDER BY [{1}] {2}", sqlCmd, orderByColumnName, sortType.ToString());
+                sqlCmd = string.Format("{0} ORDER BY {1} {2}", sqlCmd, orderByColumnName, sortType.ToString());
             }
 
             return this.GetEntities(sqlCmd, parameterValues, columnNames);
@@ -288,15 +288,15 @@ namespace LightFramework.Data.Oracle
                 string.Format("AND {0}", condition.Trim().Substring(5));
 
             string orderBy = string.IsNullOrEmpty(orderByColumnName) ?
-                string.Format("[{0}] {1}", notinColumnName, sortType.ToString()) :
-                string.Format("[{0}] {1}", orderByColumnName, sortType.ToString());
+                string.Format("{0} {1}", notinColumnName, sortType.ToString()) :
+                string.Format("{0} {1}", orderByColumnName, sortType.ToString());
 
             //分页获取数据库记录集的SQL语句
             StringBuilder sqlFormat = new StringBuilder();
             sqlFormat.Append("SELECT {0} ");
-            sqlFormat.Append("FROM [{1}] ");
-            sqlFormat.Append("WHERE [{2}] NOT IN ");
-            sqlFormat.Append("(SELECT TOP {3} [{2}] FROM [{1}] {4} ORDER BY {6}) ");
+            sqlFormat.Append("FROM {1} ");
+            sqlFormat.Append("WHERE {2} NOT IN ");
+            sqlFormat.Append("(SELECT TOP {3} {2} FROM {1} {4} ORDER BY {6}) ");
             sqlFormat.Append("{5} ORDER BY {6}");
 
             string sqlCmd = string.Format(sqlFormat.ToString(), columns, this._tableName,
@@ -341,7 +341,7 @@ namespace LightFramework.Data.Oracle
             sqlFormat.Append("SELECT *  ");
             sqlFormat.Append("FROM  (SELECT {0}, ");
             sqlFormat.Append("ROW_NUMBER() OVER (ORDER BY {1} {2}) AS 'RowId' ");
-            sqlFormat.Append("FROM [{3}] {4}) as temptable ");
+            sqlFormat.Append("FROM {3} {4}) as temptable ");
             sqlFormat.Append("WHERE RowId BETWEEN {5} AND {6} ");
 
             string sqlCmd = string.Format(sqlFormat.ToString(), columns, orderByColumnName, sortType.ToString(), this._tableName, condition, startRowId, endRowId);
@@ -468,7 +468,7 @@ namespace LightFramework.Data.Oracle
                 throw new ArgumentException("指定的条件,要求带SQL语句Where关键字的条件", "condition");
 
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("SELECT COUNT(0) AS TotalCount FROM [{0}] {1}");
+            strSql.Append("SELECT COUNT(0) AS TotalCount FROM {0} {1}");
 
             string sqlCmd = sqlCmd = string.Format(strSql.ToString(), this._tableName, condition);
             OracleParameter[] parameters = this.FillParameters(parameterValues);
@@ -491,7 +491,7 @@ namespace LightFramework.Data.Oracle
                 throw new ArgumentException("指定的条件,要求带SQL语句Where关键字的条件", "condition");
 
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("SELECT MAX({0}) AS MaxValue FROM [{1}] {2}");
+            strSql.Append("SELECT MAX({0}) AS MaxValue FROM {1} {2}");
 
             string sqlCmd = string.Format(strSql.ToString(), fieldName, this._tableName, condition);
             OracleParameter[] parameters = this.FillParameters(parameterValues);
@@ -669,7 +669,7 @@ namespace LightFramework.Data.Oracle
             string[] cols = new string[columnNames.Length];
             for (int i = 0; i < columnNames.Length; i++)
             {
-                cols[i] = string.Format("[{0}]", columnNames[i]);
+                cols[i] = string.Format("{0}", columnNames[i]);
             }
 
             return string.Join(",", cols);

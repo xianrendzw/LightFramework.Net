@@ -59,7 +59,7 @@ namespace LightFramework.Data.Oracle
         /// <returns>返回影响记录的行数,-1表示操作失败,大于-1表示成功</returns>
         public virtual int Delete(int keyValue)
         {
-            string condition = string.Format("[{0}] = {1}", this._primaryKey, keyValue);
+            string condition = string.Format("{0} = {1}", this._primaryKey, keyValue);
             return this.DeleteWithCondition(condition);
         }
 
@@ -70,7 +70,7 @@ namespace LightFramework.Data.Oracle
         /// <returns>返回影响记录的行数,-1表示操作失败,大于-1表示成功</returns>
         public virtual int Delete(string keyValue)
         {
-            string condition = string.Format("[{0}] = :p0", this._primaryKey);
+            string condition = string.Format("{0} = :p0", this._primaryKey);
             object[] parameterValues = new object[] { keyValue };
 
             return this.DeleteWithCondition(condition, parameterValues);
@@ -139,7 +139,7 @@ namespace LightFramework.Data.Oracle
         /// <returns>返回影响记录的行数,-1表示操作失败,大于-1表示成功</returns>
         public virtual int Update(T entity, string id, params string[] columnNames)
         {
-            string condition = string.Format("[{0}] = :p0", this._primaryKey);
+            string condition = string.Format("{0} = :p0", this._primaryKey);
             object[] parameterValues = new object[] { id };
 
             return this.UpdateWithCondition(entity, condition, parameterValues, columnNames);
@@ -170,7 +170,7 @@ namespace LightFramework.Data.Oracle
         /// <returns>存在则返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual bool IsExistKey(int keyValue)
         {
-            string condition = string.Format("[{0}] = {1}", this._primaryKey, keyValue);
+            string condition = string.Format("{0} = {1}", this._primaryKey, keyValue);
             return this.IsExistWithCondition(condition);
         }
 
@@ -197,7 +197,7 @@ namespace LightFramework.Data.Oracle
         /// <returns>存在则返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual bool IsExistKey(string keyValue)
         {
-            string condition = string.Format("[{0}] = :p0", this._primaryKey);
+            string condition = string.Format("{0} = :p0", this._primaryKey);
             object[] parameterValues = new object[] { keyValue };
 
             return this.IsExistWithCondition(condition, parameterValues);
@@ -232,7 +232,7 @@ namespace LightFramework.Data.Oracle
         /// <returns>返回查询结果数据</returns>
         public virtual T Select(int keyValue, params string[] columnNames)
         {
-            string condition = string.Format("WHERE [{0}] = {1}", this._primaryKey,keyValue);
+            string condition = string.Format("WHERE {0} = {1}", this._primaryKey,keyValue);
             return this.SelectOne(condition, null, columnNames);
         }
 
@@ -244,7 +244,7 @@ namespace LightFramework.Data.Oracle
         /// <returns>返回查询结果数据</returns>
         public virtual T Select(string keyValue, params string[] columnNames)
         {
-            string condition = string.Format("WHERE [{0}] = :p0", this._primaryKey);
+            string condition = string.Format("WHERE {0} = :p0", this._primaryKey);
             return this.SelectOne(condition, this.GetParamerterValues(keyValue), columnNames);
         }
 
@@ -278,8 +278,8 @@ namespace LightFramework.Data.Oracle
                  string.Format("AND {0}", condition.Trim().Substring(5));
 
             string orderBy = string.IsNullOrEmpty(orderByColumnName) ?
-               string.Format("[{0}] {1}", this._primaryKey, sortType.ToString()) :
-               string.Format("[{0}] {1}", orderByColumnName, sortType.ToString());
+               string.Format("{0} {1}", this._primaryKey, sortType.ToString()) :
+               string.Format("{0} {1}", orderByColumnName, sortType.ToString());
 
             //获取筛选列
             string columns = this.GetColumns(columnNames);
@@ -290,22 +290,22 @@ namespace LightFramework.Data.Oracle
             if (sortType == SortTypeEnum.ASC)
             {
                 sqlFormat.Append("SELECT {0} ");
-                sqlFormat.Append("FROM [{1}] ");
-                sqlFormat.Append("WHERE ([{2}] > ");
-                sqlFormat.Append("(SELECT ISNULL(MAX([{2}]),{7}) ");
-                sqlFormat.Append("FROM (SELECT TOP {3} [{2}] ");
-                sqlFormat.Append("FROM [{1}] {4} ");
+                sqlFormat.Append("FROM {1} ");
+                sqlFormat.Append("WHERE ({2} > ");
+                sqlFormat.Append("(SELECT ISNULL(MAX({2}),{7}) ");
+                sqlFormat.Append("FROM (SELECT TOP {3} {2} ");
+                sqlFormat.Append("FROM {1} {4} ");
                 sqlFormat.Append("ORDER BY {6}) AS TempTable) {5} ) ");
                 sqlFormat.Append("ORDER BY {6}");
             }
             else
             {
                 sqlFormat.Append("SELECT {0} ");
-                sqlFormat.Append("FROM [{1}] ");
-                sqlFormat.Append("WHERE ([{2}] < ");
-                sqlFormat.Append("(SELECT ISNULL(MIN([{2}]),{7}) ");
-                sqlFormat.Append("FROM (SELECT TOP {3} [{2}] ");
-                sqlFormat.Append("FROM [{1}] {4} ");
+                sqlFormat.Append("FROM {1} ");
+                sqlFormat.Append("WHERE ({2} < ");
+                sqlFormat.Append("(SELECT ISNULL(MIN({2}),{7}) ");
+                sqlFormat.Append("FROM (SELECT TOP {3} {2} ");
+                sqlFormat.Append("FROM {1} {4} ");
                 sqlFormat.Append("ORDER BY {6}) AS TempTable) {5} ) ");
                 sqlFormat.Append("ORDER BY {6}");
 
