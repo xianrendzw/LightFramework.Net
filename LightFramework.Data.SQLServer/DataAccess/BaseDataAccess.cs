@@ -12,7 +12,7 @@ namespace LightFramework.Data.SQLServer
     /// BaseDataAccess类提供对SQLServer数据库公共数据访问的抽象基类。
     /// </summary>
     /// <typeparam name="T">通用类型</typeparam>
-    public abstract class BaseDataAccess<T> : BaseSelect<T>, IBaseDataAccess<T> where T : BaseEntity
+    public abstract class BaseDataAccess<T> : BaseSelect<T>, IBaseDataAccess<T>
     {
         #region 构造函数
 
@@ -277,7 +277,7 @@ namespace LightFramework.Data.SQLServer
 
         #endregion
 
-        #region 针对SqlServer数据库的特定方法
+        #region 批量导入数据方法
 
         /// <summary>
         /// 使用多条sql语句用分号连接的方式向数据库中批量添加数据。
@@ -308,8 +308,8 @@ namespace LightFramework.Data.SQLServer
         /// <returns>影响的行数</returns>
         public virtual int Insert(List<T> entities, SqlInsertMethod method, params string[] columnNames)
         {
-            if (method == SqlInsertMethod.SqlBulkCopy)
-                return this.InsertBySqlBulkCopy(entities, columnNames);
+            if (method == SqlInsertMethod.BulkCopy)
+                return this.InsertByBulkCopy(entities, columnNames);
 
             if (method == SqlInsertMethod.TableValue)
                 return this.InsertByTableValue(entities, columnNames);
@@ -346,7 +346,7 @@ namespace LightFramework.Data.SQLServer
         /// <param name="entities">记录集合</param>
         /// <param name="columnNames">目标表列名集合</param>
         /// <returns>0表示成功，其他失败</returns>
-        protected virtual int InsertBySqlBulkCopy(List<T> entities, params string[] columnNames)
+        protected virtual int InsertByBulkCopy(List<T> entities, params string[] columnNames)
         {
             if (entities == null || entities.Count == 0)
                 throw new ArgumentNullException("entites");

@@ -5,7 +5,7 @@
     /// </summary>
     /// <typeparam name="T">通用类型</typeparam>
     public interface ISinglePKDataAccess<T>
-        : ISinglePKInsert<T>, ISinglePKDelete<T>, ISinglePKUpdate<T>, ISinglePKSelect<T>
+        : IBaseDataAccess<T>, ISinglePKInsert<T>, ISinglePKDelete<T>, ISinglePKUpdate<T>, ISinglePKSelect<T>
     {
     }
 }

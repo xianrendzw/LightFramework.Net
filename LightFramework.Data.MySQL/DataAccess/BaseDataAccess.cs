@@ -275,5 +275,60 @@ namespace LightFramework.Data.MySQL
         }
 
         #endregion
+
+        #region 批量导入数据方法
+
+        /// <summary>
+        /// 使用多条sql语句用分号连接的方式向数据库中批量添加数据。
+        /// </summary>
+        /// <param name="batchEntities">记录集合</param>
+        /// <returns>影响的行数</returns>
+        public virtual int Insert(List<BatchEntity<T>> batchEntities)
+        {
+            if (batchEntities == null || batchEntities.Count == 0)
+                throw new ArgumentNullException("batchEntities");
+
+            StringBuilder batchSqlText = new StringBuilder();
+            foreach (BatchEntity<T> batchEntity in batchEntities)
+            {
+                var dataFieldMapTable = this.GetDataFieldMapTable(batchEntity.Entity, batchEntity.ColumnNames);
+                batchSqlText.AppendFormat("{0};", this.GenerateInsertSql(dataFieldMapTable, batchEntity.DestTableName));
+            }
+
+            return MySqlHelper.ExecuteNonQuery(this._connectionString, batchSqlText.ToString());
+        }
+
+        /// <summary>
+        /// 向数据库中批量添加记录
+        /// </summary>
+        /// <param name="entities">记录集合</param>
+        /// <param name="method">批量添加方式</param>
+        /// <param name="columnNames">目标表列名集合</param>
+        /// <returns>影响的行数</returns>
+        public virtual int Insert(List<T> entities, SqlInsertMethod method, params string[] columnNames)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 使用insert into ... select ... from 语句从指定表中批量向当前表中添加数据。
+        /// </summary>
+        /// <param name="fromTableName">源数据表名</param>
+        /// <param name="columnNames">目标表列名集合</param>
+        /// <returns>影响的行数</returns>
+        public virtual int Insert(string fromTableName, params string[] columnNames)
+        {
+            if (string.IsNullOrEmpty(fromTableName))
+                throw new ArgumentNullException("fromTableName");
+
+            string columns = this.GetColumns(columnNames);
+            string insertColumns = columnNames.Equals("*") ? string.Empty : string.Format("({0})", columns);
+            string sqlCmd = string.Format("insert into {0} {1} select {2} from {3}",
+                this._tableName, insertColumns, columns, fromTableName);
+
+            return MySqlHelper.ExecuteNonQuery(this._connectionString, sqlCmd);
+        }
+
+        #endregion
     }
 }

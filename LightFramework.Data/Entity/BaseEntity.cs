@@ -10,8 +10,6 @@ namespace LightFramework.Data
     [Serializable]
     public abstract class BaseEntity
     {
-        #region Indexer Members
-
         /// <summary>
         /// 获取指定属性值的索引器。
         /// </summary>
@@ -33,8 +31,6 @@ namespace LightFramework.Data
                 if (pi != null) pi.SetValue(this, value, null);
             }
         }
-
-        #endregion
 
         /// <summary>
         /// 排除实体对象指定一系列常量值后的集合。

@@ -12,7 +12,7 @@ namespace LightFramework.Data.SQLServer
     /// 并实现ISinglePKDataAccess接口。
     /// </summary>
     /// <typeparam name="T">通用类型</typeparam>
-    public abstract class SinglePKDataAccess<T> : BaseDataAccess<T>, ISinglePKDataAccess<T> where T : BaseEntity
+    public abstract class SinglePKDataAccess<T> : BaseDataAccess<T>, ISinglePKDataAccess<T>
     {
         #region 字段与属性
 

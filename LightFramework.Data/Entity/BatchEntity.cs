@@ -9,7 +9,7 @@ namespace LightFramework.Data
     /// 批量实体类。
     /// </summary>
     /// <typeparam name="T">BaseEntity</typeparam>
-    public class BatchEntity<T> where T : BaseEntity
+    public class BatchEntity<T>
     {
         /// <summary>
         /// 构造函数。

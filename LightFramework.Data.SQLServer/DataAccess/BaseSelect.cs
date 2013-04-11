@@ -11,7 +11,7 @@ namespace LightFramework.Data.SQLServer
     /// BaseSelect类提供对SQLServer数据库一些基本的查询操作的抽象基类。
     /// </summary>
     /// <typeparam name="T">通用类型</typeparam>
-    public abstract class BaseSelect<T> : IBaseSelect<T> where T : BaseEntity
+    public abstract class BaseSelect<T> : IBaseSelect<T>
     {
         #region 构造函数
 

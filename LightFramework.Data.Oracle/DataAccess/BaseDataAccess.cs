@@ -274,5 +274,177 @@ namespace LightFramework.Data.Oracle
         }
 
         #endregion
+
+        #region 批量导入数据方法
+
+        /// <summary>
+        /// 使用多条sql语句用分号连接的方式向数据库中批量添加数据。
+        /// </summary>
+        /// <param name="batchEntities">记录集合</param>
+        /// <returns>影响的行数</returns>
+        public virtual int Insert(List<BatchEntity<T>> batchEntities)
+        {
+            if (batchEntities == null || batchEntities.Count == 0)
+                throw new ArgumentNullException("batchEntities");
+
+            StringBuilder batchSqlText = new StringBuilder();
+            foreach (BatchEntity<T> batchEntity in batchEntities)
+            {
+                var dataFieldMapTable = this.GetDataFieldMapTable(batchEntity.Entity, batchEntity.ColumnNames);
+                batchSqlText.AppendFormat("{0};", this.GenerateInsertSql(dataFieldMapTable, batchEntity.DestTableName));
+            }
+
+            return OracleHelper.ExecuteNonQuery(this._connectionString, CommandType.Text, batchSqlText.ToString());
+        }
+
+        /// <summary>
+        /// 向数据库中批量添加记录
+        /// </summary>
+        /// <param name="entities">记录集合</param>
+        /// <param name="method">批量添加方式</param>
+        /// <param name="columnNames">目标表列名集合</param>
+        /// <returns>影响的行数</returns>
+        public virtual int Insert(List<T> entities, SqlInsertMethod method, params string[] columnNames)
+        {
+            if (method == SqlInsertMethod.BulkCopy)
+                return this.InsertByBulkCopy(entities, columnNames);
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 使用insert into ... select ... from 语句从指定表中批量向当前表中添加数据。
+        /// </summary>
+        /// <param name="fromTableName">源数据表名</param>
+        /// <param name="columnNames">目标表列名集合</param>
+        /// <returns>影响的行数</returns>
+        public virtual int Insert(string fromTableName, params string[] columnNames)
+        {
+            if (string.IsNullOrEmpty(fromTableName))
+                throw new ArgumentNullException("fromTableName");
+
+            string columns = this.GetColumns(columnNames);
+            string insertColumns = columnNames.Equals("*") ? string.Empty : string.Format("({0})", columns);
+            string sqlCmd = string.Format("insert into {0} {1} select {2} from {3}",
+                this._tableName, insertColumns, columns, fromTableName);
+
+            return OracleHelper.ExecuteNonQuery(this._connectionString, CommandType.Text, sqlCmd);
+        }
+
+        #endregion
+
+        #region protected 成员
+
+        /// <summary>
+        /// 使用OracleBulkCopy方式向表中批量添加数据。
+        /// </summary>
+        /// <param name="entities">记录集合</param>
+        /// <param name="columnNames">目标表列名集合</param>
+        /// <returns>0表示成功，其他失败</returns>
+        protected virtual int InsertByBulkCopy(List<T> entities, params string[] columnNames)
+        {
+            if (entities == null || entities.Count == 0)
+                throw new ArgumentNullException("entites");
+
+            MetaDataTable metaDataTable = new MetaDataTable(typeof(T), this._tableName);
+            DataTable dataTable = this.GetDataTable(entities, metaDataTable, columnNames);
+
+            using (OracleBulkCopy bulkCopy = new OracleBulkCopy(this._connectionString))
+            {
+                bulkCopy.DestinationTableName = this._tableName;
+                bulkCopy.BatchSize = dataTable.Rows.Count;
+                this.SetColumnMappings(bulkCopy.ColumnMappings, metaDataTable, columnNames);
+
+                try
+                {
+                    bulkCopy.WriteToServer(dataTable);
+                }
+                catch (Exception ex)
+                {
+                    string message = string.Format("[SQL]:{0},[Exception]:{1}", "BulkCopy", ex.ToString());
+                    throw new ApplicationException(message);
+                }
+            }
+
+            return 0;
+        }
+
+        #endregion
+
+        #region private 成员
+
+        /// <summary>
+        /// 创建实体集合对应的DataTable对象
+        /// </summary>
+        /// <param name="metaDataTable">MetaDataTable对象</param>
+        /// <param name="entities">实体记录集合</param>
+        /// <param name="columnNames">目标表列名集合</param>
+        /// <returns>DataTable对象</returns>
+        private DataTable GetDataTable(List<T> entities, MetaDataTable metaDataTable, params string[] columnNames)
+        {
+            DataTable dataTable = new DataTable(this._tableName);
+            this.SetDataColumns(dataTable, metaDataTable, columnNames);
+
+            foreach (T entity in entities)
+            {
+                DataRow dr = dataTable.NewRow();
+                foreach (DataColumn dataColumn in dataTable.Columns)
+                {
+                    var metaDataColumn = metaDataTable.Columns[dataColumn.ColumnName];
+                    dr[dataColumn.ColumnName] = metaDataColumn.Member.GetValue(entity, null);
+                }
+                dataTable.Rows.Add(dr);
+            }
+            return dataTable;
+        }
+
+        private void SetDataColumns(DataTable dataTable, MetaDataTable metaDataTable, params string[] columnNames)
+        {
+            if (columnNames == null || columnNames.Length == 0)
+            {
+                foreach (var kp in metaDataTable.Columns)
+                    this.SetDataColumn(dataTable, kp.Value, kp.Key);
+                return;
+            }
+
+            foreach (var columnName in columnNames)
+            {
+                string colName = columnName.Trim().ToLower();
+                if (!metaDataTable.Columns.ContainsKey(colName)) continue;
+                this.SetDataColumn(dataTable, metaDataTable.Columns[colName], colName);
+            }
+        }
+
+        private void SetDataColumn(DataTable dataTable, MetaDataColumn metaDataColumn, string colName)
+        {
+            var dataColumn = new DataColumn(colName, metaDataColumn.DataType);
+            dataTable.Columns.Add(dataColumn);
+            if (metaDataColumn.Attribute.IsPrimaryKey)
+                dataTable.PrimaryKey = new DataColumn[] { dataColumn };
+        }
+
+        /// <summary>
+        /// 设置OracleBulkCopy中的ColumnMappings
+        /// </summary>
+        /// <param name="columnMappings">OracleBulkCopyColumnMappingCollection对象</param>
+        /// <param name="metaDataTable">MetaDataTable对象</param>
+        /// <param name="columnNames">目标表列名集合</param>
+        private void SetColumnMappings(OracleBulkCopyColumnMappingCollection columnMappings, MetaDataTable metaDataTable, params string[] columnNames)
+        {
+            if (columnNames == null || columnNames.Length == 0)
+            {
+                foreach (var kp in metaDataTable.Columns)
+                    columnMappings.Add(kp.Key, kp.Value.Name);
+                return;
+            }
+
+            foreach (var columnName in columnNames)
+            {
+                string colName = columnName.Trim().ToLower();
+                if (!metaDataTable.Columns.ContainsKey(colName)) continue;
+                columnMappings.Add(colName, metaDataTable.Columns[colName].Name);
+            }
+        }
+
+        #endregion
     }
 }
