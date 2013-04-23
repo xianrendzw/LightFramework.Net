@@ -491,7 +491,7 @@ namespace LightFramework.Data.Oracle
                 throw new ArgumentException("指定的条件,要求带SQL语句Where关键字的条件", "condition");
 
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("SELECT MAX({0}) AS MaxValue FROM {1} {2}");
+            strSql.Append("SELECT MAX({0}) AS MaxV FROM {1} {2}");
 
             string sqlCmd = string.Format(strSql.ToString(), fieldName, this._tableName, condition);
             OracleParameter[] parameters = this.FillParameters(parameterValues);
